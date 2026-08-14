@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
-import '../widgets/app_version_footer.dart'; // 👈 Import widget baru
+import '../widgets/app_version_footer.dart';
 import 'main_navigation.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -58,85 +58,120 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            children: [
-              // 1. FORM LOGIN
-              Expanded(
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.admin_panel_settings,
-                          size: 80,
-                          color: Colors.blue,
+    return Container(
+      // 1. DEKORASI BACKGROUND GRADASI
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFFE0F2FE), // Biru lembut di bagian atas
+            Color(0xFFF8FAFC), // Putih keabu-abuan lembut di bagian bawah
+          ],
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor:
+            Colors.transparent, // 👈 PENTING: Scaffold harus transparan
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              children: [
+                // 2. FORM LOGIN (DALAM CONTAINER CARD)
+                Expanded(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Container(
+                        padding: const EdgeInsets.all(24.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              blurRadius: 15,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Welcome Back',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 32),
-                        TextField(
-                          controller: _emailController,
-                          decoration: const InputDecoration(
-                            labelText: 'Email / Username',
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.email),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        TextField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          decoration: const InputDecoration(
-                            labelText: 'Password',
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.lock),
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: _isLoading ? null : _handleLogin,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.admin_panel_settings,
+                              size: 70,
+                              color: Colors.blue,
+                            ),
+                            const SizedBox(height: 12),
+                            const Text(
+                              'Welcome Back',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            child: _isLoading
-                                ? const CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )
-                                : const Text(
-                                    'Login',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                    ),
+                            const SizedBox(height: 28),
+                            TextField(
+                              controller: _emailController,
+                              decoration: const InputDecoration(
+                                labelText: 'Email / Username',
+                                border: OutlineInputBorder(),
+                                prefixIcon: Icon(Icons.email),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            TextField(
+                              controller: _passwordController,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                labelText: 'Password',
+                                border: OutlineInputBorder(),
+                                prefixIcon: Icon(Icons.lock),
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 50,
+                              child: ElevatedButton(
+                                onPressed: _isLoading ? null : _handleLogin,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                          ),
+                                ),
+                                child: _isLoading
+                                    ? const SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                          strokeWidth: 2.5,
+                                        ),
+                                      )
+                                    : const Text(
+                                        'Login',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
 
-              // 2. FOOTER (WIDGET TERPISAH)
-              const AppVersionFooter(), // 👈 Penggunaan widget terpisah
-            ],
+                // 3. FOOTER
+                const AppVersionFooter(),
+              ],
+            ),
           ),
         ),
       ),
