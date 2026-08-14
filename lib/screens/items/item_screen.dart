@@ -90,7 +90,7 @@ class _ItemScreenState extends State<ItemScreen> {
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Colors.green,
+                            color: Colors.orange,
                           ),
                         ),
                         const SizedBox(height: 8),

@@ -48,7 +48,7 @@ class _AppVersionFooterState extends State<AppVersionFooter> {
           ),
           const SizedBox(height: 2),
           const Text(
-            'Powered by',
+            '2026 Powered by',
             style: TextStyle(fontSize: 12, color: Colors.grey),
           ),
           const SizedBox(height: 2),
@@ -57,7 +57,7 @@ class _AppVersionFooterState extends State<AppVersionFooter> {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.bold,
-              color: Colors.blue,
+              color: Colors.orange,
             ),
           ),
         ],

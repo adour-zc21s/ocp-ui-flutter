@@ -93,7 +93,7 @@ class WelcomeBanner extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Colors.blue, Colors.blueAccent],
+          colors: [Colors.orange, Colors.redAccent],
         ),
         borderRadius: BorderRadius.circular(16),
       ),

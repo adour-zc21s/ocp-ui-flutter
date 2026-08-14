@@ -65,8 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFFE0F2FE), // Biru lembut di bagian atas
-            Color(0xFFF8FAFC), // Putih keabu-abuan lembut di bagian bawah
+            Colors.orange, // Putih keabu-abuan lembut di bagian bawah
+            Colors.white,  // Biru kehijauan di bagian atas
           ],
         ),
       ),
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const Icon(
                               Icons.admin_panel_settings,
                               size: 70,
-                              color: Colors.blue,
+                              color: Colors.orange,
                             ),
                             const SizedBox(height: 12),
                             const Text(
@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: ElevatedButton(
                                 onPressed: _isLoading ? null : _handleLogin,
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue,
+                                  backgroundColor: Colors.orange,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -152,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       )
                                     : const Text(
-                                        'Login',
+                                        'LOG IN',
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.white,
