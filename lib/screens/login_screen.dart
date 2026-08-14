@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import '../widgets/app_version_footer.dart'; // 👈 Import widget baru
 import 'main_navigation.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,32 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _authService = AuthService();
-  String _appVersion = 'Loading...';
   bool _isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadAppVersion(); // 👈 Panggil fungsi memuat versi saat layar diinisialisasi
-  }
-
-  // 👈 Fungsi asynchronous untuk mengambil info versi aplikasi
-  Future<void> _loadAppVersion() async {
-    try {
-      final packageInfo = await PackageInfo.fromPlatform();
-      if (mounted) {
-        setState(() {
-          _appVersion = 'v${packageInfo.version}+${packageInfo.buildNumber}';
-        });
-      }
-    } catch (_) {
-      if (mounted) {
-        setState(() {
-          _appVersion = 'v1.0.0'; // Fallback jika gagal memuat
-        });
-      }
-    }
-  }
 
   @override
   void dispose() {
@@ -62,11 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      // Pemanggilan API login menggunakan AuthService
       await _authService.login(email, password);
 
       if (mounted) {
-        // Berhasil Login, Arahkan ke Halaman Utama Navigasi
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const MainNavigation()),
@@ -91,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.all(24.0),
           child: Column(
             children: [
-              // 1. BAGIAN UTAMA (FORM LOGIN)
+              // 1. FORM LOGIN
               Expanded(
                 child: Center(
                   child: SingleChildScrollView(
@@ -161,33 +134,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              // 2. FOOTER (POWERED BY & APP VERSION)
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      _appVersion, // 👈 Versi dinamis dari package_info_plus
-                      style: const TextStyle(fontSize: 11, color: Colors.grey),
-                    ),
-                    const SizedBox(height: 2),
-                    const Text(
-                      'Powered by',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                    const SizedBox(height: 2),
-                    const Text(
-                      'Open Class Programming',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // 2. FOOTER (WIDGET TERPISAH)
+              const AppVersionFooter(), // 👈 Penggunaan widget terpisah
             ],
           ),
         ),
