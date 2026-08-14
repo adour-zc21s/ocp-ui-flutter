@@ -6,7 +6,7 @@ import '../../widgets/logout_button.dart';
 import '../devices/devices_screen.dart';
 import '../branch/branch_screen.dart';
 import '../monitoring/monitoring_screen.dart';
-import '../items/item_screen.dart'; // 👈 Import ItemScreen
+import '../items/item_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,38 +17,38 @@ class HomeScreen extends StatelessWidget {
       {
         'title': 'Monitoring', // 👈 Menu khusus Monitoring
         'icon': Icons.monitor_heart,
-        'color': Colors.indigo,
+        'color': Colors.grey,
         'screen': const MonitoringScreen(),
       },
       {
         'title': 'Tickets',
         'icon': Icons.confirmation_number,
-        'color': Colors.blue,
+        'color': Colors.grey,
         'screen': const TicketScreen(),
       },
       {
         'title': 'Devices',
         'icon': Icons.devices,
-        'color': Colors.orange,
+        'color': Colors.grey,
         'screen': const DeviceScreen(),
       },
-      {'title': 'Accounts', 'icon': Icons.person, 'color': Colors.green},
-      {'title': 'Emails', 'icon': Icons.email, 'color': Colors.red},
+      {'title': 'Accounts', 'icon': Icons.person, 'color': Colors.grey},
+      {'title': 'Emails', 'icon': Icons.email, 'color': Colors.grey},
       {
         'title': 'Notifications',
         'icon': Icons.notifications,
-        'color': Colors.amber,
+        'color': Colors.grey,
       },
       {
         'title': 'Branches',
         'icon': Icons.location_city,
-        'color': Colors.blueGrey,
+        'color': Colors.grey,
         'screen': const BranchScreen(),
       },
       {
         'title': 'Items', // 👈 Menu Item Baru
         'icon': Icons.inventory,
-        'color': Colors.teal,
+        'color': Colors.grey,
         'screen': const ItemScreen(),
       },
     ];
@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Dashboard',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.grey),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -72,7 +72,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 24),
             const Text(
               'Main Menu',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18, color: Colors.grey),
             ),
             const SizedBox(height: 16),
             DashboardGrid(menus: dashboardMenus),
@@ -93,7 +93,7 @@ class WelcomeBanner extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Colors.orange, Colors.redAccent],
+          colors: [Colors.grey, Colors.black87],
         ),
         borderRadius: BorderRadius.circular(16),
       ),
@@ -103,7 +103,7 @@ class WelcomeBanner extends StatelessWidget {
           Text(
             'Halo, Admin',
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black87,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),

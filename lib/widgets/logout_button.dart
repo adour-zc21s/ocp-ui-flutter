@@ -26,7 +26,7 @@ class LogoutButton extends StatelessWidget {
                 (route) => false,
               );
             },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
             child: const Text('Log Out', style: TextStyle(color: Colors.white)),
           ),
         ],
@@ -37,7 +37,7 @@ class LogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.logout, color: Colors.red),
+      icon: const Icon(Icons.logout, color: Colors.grey),
       tooltip: 'Log Out',
       onPressed: () => _showLogoutDialog(context),
     );

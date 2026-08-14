@@ -57,7 +57,7 @@ class _AppVersionFooterState extends State<AppVersionFooter> {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.bold,
-              color: Colors.orange,
+              color: Colors.grey,
             ),
           ),
         ],

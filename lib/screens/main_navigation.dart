@@ -35,7 +35,9 @@ class _MainNavigationState extends State<MainNavigation> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue,
+        // ini warna background dari bottom navigation bar
+        backgroundColor: Colors.black45,
+        selectedItemColor: Colors.greenAccent,
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
