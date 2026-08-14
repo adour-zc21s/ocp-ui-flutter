@@ -14,7 +14,7 @@ class TicketItemTile extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
         leading: const CircleAvatar(
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.grey,
           child: Icon(Icons.confirmation_number, color: Colors.white),
         ),
         title: Text(

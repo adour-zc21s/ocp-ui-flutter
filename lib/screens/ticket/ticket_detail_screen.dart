@@ -75,7 +75,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Komentar & Pesan',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
             ),
           ),
@@ -91,11 +91,17 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(
-                      child: Text('Terjadi kesalahan: ${snapshot.error}'),
+                      child: Text(
+                        'Terjadi kesalahan: ${snapshot.error}',
+                        style: TextStyle(color: Colors.grey),
+                      ),
                     );
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return const Center(
-                      child: Text('Belum ada komentar pada tiket ini.'),
+                      child: Text(
+                        'Belum ada komentar pada tiket ini.',
+                        style: TextStyle(color: Colors.grey),
+                      ),
                     );
                   }
 
@@ -109,7 +115,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                         margin: const EdgeInsets.only(bottom: 8),
                         child: ListTile(
                           leading: CircleAvatar(
-                            backgroundColor: Colors.blue.shade100,
+                            backgroundColor: Colors.grey.shade300,
                             child: Text(
                               comment.author.isNotEmpty
                                   ? comment.author[0].toUpperCase()

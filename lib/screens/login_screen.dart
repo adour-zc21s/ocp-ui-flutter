@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF050B14), darkBackground, Color(0xFF101929)],
+          colors: [Colors.black54, darkBackground, Color(0xFF101929)],
         ),
       ),
       child: Scaffold(
@@ -218,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 gradient: const LinearGradient(
-                                  colors: [secondaryGlow, primaryNeon],
+                                  colors: [secondaryGlow, Color.fromARGB(255, 61, 57, 57)],
                                 ),
                                 boxShadow: [
                                   BoxShadow(
@@ -251,7 +251,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: Colors
-                                              .black, // Kontras tinggi dengan neon
+                                              .grey, // Kontras tinggi dengan neon
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1.5,
                                         ),
