@@ -18,6 +18,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.black87,
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android:
+                ZoomPageTransitionsBuilder(), // Opsi: ZoomPageTransitionsBuilder() atau CupertinoPageTransitionsBuilder()
+          },
+        ),
       ),
       home: const LoginScreen(),
     );
