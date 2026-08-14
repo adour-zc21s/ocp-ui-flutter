@@ -1,0 +1,36 @@
+name: ocp_flut
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.3.0
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  package_info_plus: ^10.1.0 # (Gunakan versi terbaru yang tersedia)
+
+  cupertino_icons: ^1.0.8
+  http: ^1.2.0 # Package http di sini
+  shared_preferences: ^2.5.5
+  intl: ^0.20.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: "^0.13.1"
+
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/trackit_icon.png"
+  # Opsional untuk Android 8.0+ (Adaptive Icons):
+  # adaptive_icon_background: "#FFFFFF" # atau path ke gambar latar: "assets/icon/background.png"
+  # adaptive_icon_foreground: "assets/icon/foreground.png"
