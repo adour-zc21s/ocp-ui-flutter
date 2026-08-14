@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Email dan Password wajib diisi')),
+        const SnackBar(content: Text('Email ama password kaga boleh kosong')),
       );
       return;
     }
