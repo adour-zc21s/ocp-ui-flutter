@@ -62,7 +62,7 @@ class MenuItemTile extends StatelessWidget {
           Text(
             menu['title'],
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.black87),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

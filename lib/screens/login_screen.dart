@@ -66,9 +66,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     // Definisi Warna Tema Teknologi (Cyber Neon / Deep Dark)
     const primaryNeon = Colors.grey; // Electric Cyan
-    const secondaryGlow = Colors.black87; // Deep Blue Accent
-    const darkBackground = Color(0xFF0B0E14); // Dark Navy / Almost Black
-    const cardBackground = Color(0xFF151C28); // Subtle Slate Card
+    const secondaryGlow = Colors.black45; // Deep Blue Accent
+    const darkBackground = Colors.black38; // Dark Navy / Almost Black
+    const cardBackground = Colors.grey; // Subtle Slate Card
 
     return Container(
       // 1. GRADASI BACKGROUND HIGH-TECH
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Colors.black54, darkBackground, Color(0xFF101929)],
+          colors: [Colors.black54, darkBackground, Colors.black38],
         ),
       ),
       child: Scaffold(
@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: const Icon(
                                 Icons.verified_user_outlined,
                                 size: 52,
-                                color: primaryNeon,
+                                color: Colors.black87,
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w800,
-                                color: Colors.white,
+                                color: Colors.black87,
                                 letterSpacing: 2.0, // Memberikan kesan sci-fi
                               ),
                             ),
@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Enter your credentials to access system',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.white.withOpacity(0.6),
+                                color: Colors.black45.withOpacity(0.6),
                               ),
                             ),
                             const SizedBox(height: 32),

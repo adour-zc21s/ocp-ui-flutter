@@ -17,38 +17,38 @@ class HomeScreen extends StatelessWidget {
       {
         'title': 'Monitoring', // 👈 Menu khusus Monitoring
         'icon': Icons.monitor_heart,
-        'color': Colors.grey,
+        'color': Colors.black87,
         'screen': const MonitoringScreen(),
       },
       {
         'title': 'Tickets',
         'icon': Icons.confirmation_number,
-        'color': Colors.grey,
+        'color': Colors.black87,
         'screen': const TicketScreen(),
       },
       {
         'title': 'Devices',
         'icon': Icons.devices,
-        'color': Colors.grey,
+        'color': Colors.black87,
         'screen': const DeviceScreen(),
       },
-      {'title': 'Accounts', 'icon': Icons.person, 'color': Colors.grey},
-      {'title': 'Emails', 'icon': Icons.email, 'color': Colors.grey},
+      {'title': 'Accounts', 'icon': Icons.person, 'color': Colors.black87},
+      {'title': 'Emails', 'icon': Icons.email, 'color': Colors.black87},
       {
         'title': 'Notifications',
         'icon': Icons.notifications,
-        'color': Colors.grey,
+        'color': Colors.black87,
       },
       {
         'title': 'Branches',
         'icon': Icons.location_city,
-        'color': Colors.grey,
+        'color': Colors.black87,
         'screen': const BranchScreen(),
       },
       {
         'title': 'Items', // 👈 Menu Item Baru
         'icon': Icons.inventory,
-        'color': Colors.grey,
+        'color': Colors.black87,
         'screen': const ItemScreen(),
       },
     ];
@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Dashboard',
-          style: TextStyle(color: Colors.grey),
+          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -72,7 +72,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 24),
             const Text(
               'Main Menu',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
+              style: TextStyle(fontSize: 18, color: Colors.black87, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             DashboardGrid(menus: dashboardMenus),
@@ -93,7 +93,7 @@ class WelcomeBanner extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Colors.grey, Colors.black87],
+          colors: [Colors.black38, Colors.grey],
         ),
         borderRadius: BorderRadius.circular(16),
       ),

@@ -39,8 +39,8 @@ class _TicketScreenState extends State<TicketScreen> {
         appBar: AppBar(
           title: const Text('Tickets Management'),
           bottom: const TabBar(
-            indicatorColor: Colors.green,
-            labelColor: Colors.green,
+            indicatorColor: Colors.brown,
+            labelColor: Colors.brown,
             unselectedLabelColor: Colors.grey,
             tabs: [
               Tab(icon: Icon(Icons.lock_open), text: 'Ticket Open'),
