@@ -22,7 +22,7 @@ class Monitoring {
       ip: json['ip']?.toString() ?? '-',
       port: json['port']?.toString() ?? '-',
       description: json['description']?.toString() ?? '-',
-      isOnline: json['isOnline'] as bool? ?? false,
+      isOnline: json['online'] as bool? ?? false,
     );
   }
 }

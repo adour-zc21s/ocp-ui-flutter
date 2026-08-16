@@ -5,53 +5,40 @@ import 'api_config.dart';
 import 'auth_service.dart';
 
 class MonitoringService {
-  // Method pembantu untuk mengambil dan membersihkan token dari karakter tersembunyi
-  Future<String?> _getCleanToken() async {
-    final rawToken = await AuthService.getToken();
-    if (rawToken == null || rawToken.isEmpty) return null;
-
-    // Membersihkan whitespace, \n, dan \r yang merusak header HTTP
-    return rawToken.replaceAll('\n', '').replaceAll('\r', '').trim();
-  }
-
   Future<List<Monitoring>> fetchMonitoring() async {
     try {
-      final token = await _getCleanToken();
+      final token = await AuthService.getToken();
       final url = Uri.parse(ApiConfig.monitoring);
+      final headers = <String, String>{'Content-Type': 'application/json'};
 
-      final headers = <String, String>{
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      };
+      // print('=== DEBUG API MONITORING ===');
+      // print('URL Endpoint: $url');
+      // print('Token dari Storage: "$token"'); // Cek apakah null atau empty
 
       if (token != null && token.isNotEmpty) {
         headers['Authorization'] = 'Bearer $token';
       }
 
-      // print('=== DEBUG API MONITORING ===');
-      // print('URL Endpoint: $url');
-      // print('Token Bersih: "$token"');
-      // print('Request Headers: $headers');
+      // print(
+      //   'Request Headers: $headers',
+      // ); // Cek apakah header Authorization terpasang
 
       final response = await http.get(url, headers: headers);
 
+      // // 🔍 2. PRINT DEBUGGING SETELAH RESPON
       // print('Response Status Code: ${response.statusCode}');
       // print('Response Body: ${response.body}');
       // print('===========================');
 
       if (response.statusCode == 200) {
         final dynamic body = jsonDecode(response.body);
-        List<dynamic> content = body is Map ? (body['content'] ?? []) : body;
+        List<dynamic> content = body is Map ? body['content'] : body;
         return content.map((item) => Monitoring.fromJson(item)).toList();
-      } else if (response.statusCode == 401) {
-        throw Exception(
-          '401 Unauthorized: Sesi berakhir atau token tidak valid.',
-        );
       } else {
         throw Exception('Gagal memuat monitoring: ${response.statusCode}');
       }
     } catch (e) {
-      // print('Error pada fetchMonitoring: $e');
+      // print('Error pada fetchMonitoring: $e'); // 🔍 3. PRINT EKSPEPSI / ERROR
       rethrow;
     }
   }

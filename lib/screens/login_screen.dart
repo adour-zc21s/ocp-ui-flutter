@@ -224,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: primaryNeon.withOpacity(0.3),
+                                    color: const Color.fromARGB(255, 29, 32, 31).withOpacity(0.3),
                                     blurRadius: 12,
                                     offset: const Offset(0, 4),
                                   ),
@@ -252,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         'LOG IN',
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: Colors.grey,
+                                          color: Color.fromARGB(255, 3, 92, 43),
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1.5,
                                         ),
