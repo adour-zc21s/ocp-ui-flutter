@@ -64,19 +64,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Definisi Warna Tema Teknologi (Cyber Neon / Deep Dark)
-    const primaryNeon = Colors.grey; // Electric Cyan
-    const secondaryGlow = Colors.black45; // Deep Blue Accent
-    const darkBackground = Colors.black38; // Dark Navy / Almost Black
-    const cardBackground = Colors.grey; // Subtle Slate Card
+    const primaryNeon = Color.fromARGB(255, 141, 73, 17);
+    const secondaryGlow = Colors.grey;
+    const cardBackground = Color.fromRGBO(66, 66, 66, 1);
 
     return Container(
-      // 1. GRADASI BACKGROUND HIGH-TECH
+      // 1. WALLPAPER BACKGROUND DARI ASSETS
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Colors.black54, darkBackground, Colors.black38],
+        image: DecorationImage(
+          image: AssetImage(
+            'assets/login_background.png',
+          ), // 👈 Gambar dari assets
+          fit: BoxFit.cover, // Memenuhi seluruh layar tanpa memukul rasio
+          colorFilter: ColorFilter.mode(
+            Colors.black54,
+            BlendMode.darken,
+          ), // Memberikan efek gelap pada wallpaper
         ),
       ),
       child: Scaffold(
@@ -95,10 +98,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: BoxDecoration(
                           color: cardBackground.withOpacity(0.85),
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: primaryNeon.withOpacity(0.3),
-                            width: 1.5,
-                          ),
                           boxShadow: [
                             BoxShadow(
                               color: primaryNeon.withOpacity(0.15),
@@ -133,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.black87,
-                                letterSpacing: 2.0, // Memberikan kesan sci-fi
+                                letterSpacing: 2.0,
                               ),
                             ),
                             const SizedBox(height: 6),
@@ -211,14 +210,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(height: 28),
 
-                            // Tombol Login dengan Gradasi Neon
+                            // Tombol Login
                             Container(
                               width: double.infinity,
                               height: 52,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 gradient: const LinearGradient(
-                                  colors: [secondaryGlow, Color.fromARGB(255, 61, 57, 57)],
+                                  colors: [
+                                    secondaryGlow,
+                                    Color.fromARGB(255, 61, 57, 57),
+                                  ],
                                 ),
                                 boxShadow: [
                                   BoxShadow(
@@ -250,8 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         'LOG IN',
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: Colors
-                                              .grey, // Kontras tinggi dengan neon
+                                          color: Colors.grey,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1.5,
                                         ),
@@ -265,7 +266,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
 
-                // 3. FOOTER (Disesuaikan dengan tema gelap)
+                // 3. FOOTER
                 Theme(data: ThemeData.dark(), child: const AppVersionFooter()),
               ],
             ),
