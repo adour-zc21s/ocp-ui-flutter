@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
             TargetPlatform.android:
-                ZoomPageTransitionsBuilder(), // Opsi: ZoomPageTransitionsBuilder() atau CupertinoPageTransitionsBuilder()
+                CupertinoPageTransitionsBuilder(), // Opsi: ZoomPageTransitionsBuilder() atau CupertinoPageTransitionsBuilder()
           },
         ),
       ),
