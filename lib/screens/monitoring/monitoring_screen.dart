@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../../models/branch_model.dart';
-import '../../models/branch_status_model.dart';
-import '../../services/branch_service.dart';
+import '../../models/monitoring_model.dart';
+import '../../services/monitoring_service.dart';
 import '../../widgets/ip_status_card.dart';
 
 class MonitoringScreen extends StatefulWidget {
@@ -13,10 +12,10 @@ class MonitoringScreen extends StatefulWidget {
 }
 
 class _MonitoringScreenState extends State<MonitoringScreen> {
-  final BranchService _branchService = BranchService();
+  final MonitoringService _monitoringService = MonitoringService();
 
-  List<Branch> _branches = [];
-  final Map<int, BranchStatus> _statuses = {};
+  List<Monitoring> _monitoring = [];
+  final Map<int, Monitoring> _statuses = {};
   bool _isLoading = true;
   Timer? _timer;
 
@@ -27,7 +26,8 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
 
     // Auto-refresh semua status branch setiap 30 detik
     _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
-      _checkAllBranchStatuses();
+      // Panggil method untuk memuat ulang daftar aplikasi dan statusnya
+      _fetchAndCheckAll();
     });
   }
 
@@ -43,31 +43,31 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
     setState(() => _isLoading = true);
 
     try {
-      final list = await _branchService.fetchBranches();
+      final list = await _monitoringService.fetchMonitoring();
       if (mounted) {
         setState(() {
-          _branches = list;
+          _monitoring = list;
           _isLoading = false;
         });
-        _checkAllBranchStatuses();
+        _checkAllMonitoringStatuses();
       }
     } catch (e) {
       if (mounted) {
         setState(() => _isLoading = false);
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Gagal memuat data branch: $e')));
+        ).showSnackBar(SnackBar(content: Text('Gagal memuat data monitoring: $e')));
       }
     }
   }
 
   // Cek status ke semua branch
-  Future<void> _checkAllBranchStatuses() async {
-    for (var branch in _branches) {
-      final id = int.tryParse(branch.id) ?? 0;
+  Future<void> _checkAllMonitoringStatuses() async {
+    for (var monitor in _monitoring) {
+      final id = monitor.id ?? 0;
       if (id != 0) {
         try {
-          final status = await _branchService.checkBranchStatus(id);
+          final status = await _monitoringService.checkMonitoringStatus(id);
           if (mounted) {
             setState(() {
               _statuses[id] = status;
@@ -79,17 +79,17 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
   }
 
   // Test koneksi manual per item
-  Future<void> _testSingleBranch(int branchId, String branchName) async {
+  Future<void> _testSingleApplication(int id, String name) async {
     setState(() {
-      _statuses.remove(branchId);
+      _statuses.remove(id);
     });
 
     try {
-      final status = await _branchService.checkBranchStatus(branchId);
+      final status = await _monitoringService.checkMonitoringStatus(id);
       if (!mounted) return;
 
       setState(() {
-        _statuses[branchId] = status;
+        _statuses[id] = status;
       });
 
       final isOnline = status.isOnline;
@@ -97,8 +97,8 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
         SnackBar(
           content: Text(
             isOnline
-                ? 'Koneksi $branchName ONLINE (${status.ipPublic})'
-                : 'Koneksi $branchName OFFLINE / Terputus',
+                ? 'Koneksi $name ONLINE (${status.ip})'
+                : 'Koneksi $name OFFLINE / Terputus',
           ),
           backgroundColor: isOnline ? Colors.green : Colors.red,
           duration: const Duration(seconds: 2),
@@ -108,7 +108,7 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Gagal tes koneksi $branchName: $e'),
+          content: Text('Gagal tes koneksi $name: $e'),
           backgroundColor: Colors.red,
         ),
       );
@@ -118,25 +118,25 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
   @override
   Widget build(BuildContext context) {
     // Menghitung statistik ringkas
-    final total = _branches.length;
+    final total = _monitoring.length;
     final onlineCount = _statuses.values.where((s) => s.isOnline).length;
     final offlineCount = _statuses.values.where((s) => !s.isOnline).length;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Monitoring Branch'),
+        title: const Text('Monitoring Application'),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            tooltip: 'Refresh Semua',
+            tooltip: 'Refresh All',
             onPressed: _fetchAndCheckAll,
           ),
         ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : _branches.isEmpty
-          ? const Center(child: Text('Tidak ada data branch.'))
+          : _monitoring.isEmpty
+          ? const Center(child: Text('Tidak ada data application.'))
           : RefreshIndicator(
               onRefresh: _fetchAndCheckAll,
               child: ListView(
@@ -153,7 +153,7 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          _buildStatItem('Total Branch', '$total', Colors.blue),
+                          _buildStatItem('Total Application', '$total', Colors.blue),
                           _buildStatItem(
                             'Online',
                             '$onlineCount',
@@ -170,19 +170,19 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
                   ),
                   const SizedBox(height: 16),
 
-                  // Daftar Card Monitoring Setiap Branch
-                  ..._branches.map((branch) {
-                    final id = int.tryParse(branch.id) ?? 0;
+                  // Daftar Card Monitoring Setiap Application
+                  ..._monitoring.map((monitor) {
+                    final id = monitor.id ?? 0;
                     final status = _statuses[id];
 
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: IpStatusCard(
-                        branchName: branch.name,
-                        ipPublic: branch.noIsp1,
+                        name: monitor.name,
+                        ip: monitor.ip,
                         status: status,
                         isLoading: status == null,
-                        onTestPressed: () => _testSingleBranch(id, branch.name),
+                        onTestPressed: () => _testSingleApplication(id, monitor.name),
                       ),
                     );
                   }),

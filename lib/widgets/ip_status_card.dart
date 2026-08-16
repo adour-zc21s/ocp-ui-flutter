@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import '../models/branch_status_model.dart';
+import '../models/monitoring_model.dart';
 
 class IpStatusCard extends StatelessWidget {
-  final String branchName;
-  final String? ipPublic;
-  final BranchStatus? status;
+  final String name;
+  final String? ip;
+  final Monitoring? status;
   final bool isLoading;
   final VoidCallback? onTestPressed;
 
   const IpStatusCard({
     super.key,
-    required this.branchName,
-    this.ipPublic,
+    required this.name,
+    this.ip,
     this.status,
     this.isLoading = false,
     this.onTestPressed,
@@ -45,7 +45,7 @@ class IpStatusCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    branchName,
+                    name,
                     maxLines:
                         1, // 👈 Agar teks tidak meluap jika terlalu panjang
                     overflow: TextOverflow.ellipsis,
@@ -56,7 +56,7 @@ class IpStatusCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    'IP Public: ${ipPublic ?? status?.ipPublic ?? 'Memuat...'}',
+                    'IP: ${ip ?? status?.ip ?? 'Memuat...'}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: Colors.grey[600], fontSize: 13),

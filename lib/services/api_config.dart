@@ -16,10 +16,13 @@ class ApiConfig {
   static const String brances = '$baseUrl/branches';
   static const String cariBranches = '$baseUrl/branches/search';
   static const String items = '$baseUrl/items';
+  static const String monitoring = '$baseUrl/monitoring';
+
 
 
   // Method pembantu untuk URL spesifik ID (contoh: /tickets/123)
   static String ticketDetail(String id) => '$tickets/$id';
   static String branchDetailStatus(dynamic id) => '$brances/$id/status';
+  static String monitoringDetailStatus(dynamic id) => '$monitoring/$id/status';
   static String itemDetail(String id) => '$items/$id';
 }
