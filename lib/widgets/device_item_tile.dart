@@ -17,10 +17,10 @@ class DeviceItemTile extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
         leading: CircleAvatar(
-          backgroundColor: Colors.orange.shade100,
+          backgroundColor: Colors.grey.shade300,
           child: Icon(
             Icons.devices,
-            color: Colors.orange.shade800,
+            color: Colors.black54,
           ),
         ),
         title: Text(

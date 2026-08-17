@@ -17,10 +17,10 @@ class BranchItemTile extends StatelessWidget {
         isThreeLine: true,
         onTap: onTap,
         leading: CircleAvatar(
-          backgroundColor: Colors.blue.shade100,
+          backgroundColor: Colors.grey.shade300,
           child: Icon(
             Icons.location_city,
-            color: Colors.blueGrey,
+            color: Colors.black54,
           ),
         ),
         title: Text(

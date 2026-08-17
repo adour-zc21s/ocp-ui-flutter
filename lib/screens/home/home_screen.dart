@@ -17,38 +17,38 @@ class HomeScreen extends StatelessWidget {
       {
         'title': 'Monitoring', // 👈 Menu khusus Monitoring
         'icon': Icons.monitor_heart,
-        'color': Colors.black87,
+        'color': Colors.green.shade700,
         'screen': const MonitoringScreen(),
       },
       {
         'title': 'Tickets',
         'icon': Icons.confirmation_number,
-        'color': Colors.black87,
+        'color': Colors.green.shade700,
         'screen': const TicketScreen(),
       },
       {
         'title': 'Devices',
         'icon': Icons.devices,
-        'color': Colors.black87,
+        'color': Colors.green.shade700,
         'screen': const DeviceScreen(),
       },
-      {'title': 'Accounts', 'icon': Icons.person, 'color': Colors.black87},
-      {'title': 'Emails', 'icon': Icons.email, 'color': Colors.black87},
+      {'title': 'Accounts', 'icon': Icons.person, 'color': Colors.green.shade700},
+      {'title': 'Emails', 'icon': Icons.email, 'color': Colors.green.shade700},
       {
         'title': 'Notifications',
         'icon': Icons.notifications,
-        'color': Colors.black87,
+        'color': Colors.green.shade700,
       },
       {
         'title': 'Branches',
         'icon': Icons.location_city,
-        'color': Colors.black87,
+        'color': Colors.green.shade700,
         'screen': const BranchScreen(),
       },
       {
         'title': 'Items', // 👈 Menu Item Baru
         'icon': Icons.inventory,
-        'color': Colors.black87,
+        'color': Colors.green.shade700,
         'screen': const ItemScreen(),
       },
     ];

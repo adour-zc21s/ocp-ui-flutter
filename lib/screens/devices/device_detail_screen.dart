@@ -26,7 +26,7 @@ class DeviceDetailScreen extends StatelessWidget {
                   leading: const Icon(
                     Icons.developer_board,
                     size: 40,
-                    color: Colors.blue,
+                    color: Colors.grey,
                   ),
                   title: Text(
                     device.deviceName,
