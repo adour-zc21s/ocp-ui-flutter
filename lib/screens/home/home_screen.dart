@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> dashboardMenus = [
       {
-        'title': 'Monitoring', // 👈 Menu khusus Monitoring
+        'title': 'Monitoring',
         'icon': Icons.monitor_heart,
         'color': Colors.green.shade700,
         'screen': const MonitoringScreen(),
@@ -32,7 +32,11 @@ class HomeScreen extends StatelessWidget {
         'color': Colors.green.shade700,
         'screen': const DeviceScreen(),
       },
-      {'title': 'Accounts', 'icon': Icons.person, 'color': Colors.green.shade700},
+      {
+        'title': 'Accounts',
+        'icon': Icons.person,
+        'color': Colors.green.shade700,
+      },
       {'title': 'Emails', 'icon': Icons.email, 'color': Colors.green.shade700},
       {
         'title': 'Notifications',
@@ -46,7 +50,7 @@ class HomeScreen extends StatelessWidget {
         'screen': const BranchScreen(),
       },
       {
-        'title': 'Items', // 👈 Menu Item Baru
+        'title': 'Items',
         'icon': Icons.inventory,
         'color': Colors.green.shade700,
         'screen': const ItemScreen(),
@@ -72,10 +76,32 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 24),
             const Text(
               'Main Menu',
-              style: TextStyle(fontSize: 18, color: Colors.black87, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 16),
-            DashboardGrid(menus: dashboardMenus),
+            const SizedBox(height: 12),
+
+            // 🚀 BUNGKUS DASHBOARD GRID DI DALAM BOX OVAL / ROUNDED CONTAINER
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200, // Warna background box
+                borderRadius: BorderRadius.circular(
+                  24.0,
+                ), // Melengkungkan sudut (Oval/Rounded)
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05), // Bayangan lembut
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: DashboardGrid(menus: dashboardMenus),
+            ),
           ],
         ),
       ),
@@ -92,9 +118,7 @@ class WelcomeBanner extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Colors.black38, Colors.grey],
-        ),
+        gradient: const LinearGradient(colors: [Colors.black38, Colors.grey]),
         borderRadius: BorderRadius.circular(16),
       ),
       child: const Column(

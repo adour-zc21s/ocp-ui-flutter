@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const primaryNeon = Color.fromARGB(255, 1, 80, 31);
+    const primaryNeon = Colors.green;
     const secondaryGlow = Colors.grey;
     const cardBackground = Color.fromRGBO(66, 66, 66, 1);
 
@@ -114,24 +114,24 @@ class _LoginScreenState extends State<LoginScreen> {
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: primaryNeon.withOpacity(0.1),
+                                color: Colors.black45,
                                 border: Border.all(
-                                  color: primaryNeon.withOpacity(0.5),
+                                  color: Colors.black54,
                                 ),
                               ),
                               child: const Icon(
                                 Icons.verified_user_outlined,
                                 size: 52,
-                                color: Colors.black87,
+                                color: primaryNeon,
                               ),
                             ),
                             const SizedBox(height: 16),
                             const Text(
-                              'AUTHENTICATION',
+                              'TractIT',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w800,
-                                color: Colors.black87,
+                                color: primaryNeon,
                                 letterSpacing: 2.0,
                               ),
                             ),
