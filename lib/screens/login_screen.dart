@@ -218,8 +218,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(12),
                                 gradient: const LinearGradient(
                                   colors: [
-                                    secondaryGlow,
-                                    Color.fromARGB(255, 61, 57, 57),
+                                    Colors.black45,
+                                    Colors.black38,
                                   ],
                                 ),
                                 boxShadow: [
@@ -252,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         'LOG IN',
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: Color.fromARGB(255, 3, 92, 43),
+                                          color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1.5,
                                         ),

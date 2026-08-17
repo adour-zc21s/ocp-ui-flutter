@@ -26,8 +26,8 @@ class LogoutButton extends StatelessWidget {
                 (route) => false,
               );
             },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-            child: const Text('Log Out', style: TextStyle(color: Colors.white)),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey.shade300),
+            child: const Text('Log Out', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

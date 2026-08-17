@@ -12,12 +12,12 @@ class MainNavigation extends StatefulWidget {
 }
 
 class _MainNavigationState extends State<MainNavigation> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   // Daftar tampilan layar
   final List<Widget> _screens = const [
-    HomeScreen(),
     TicketScreen(),
+    HomeScreen(),
     // DevicesScreen(),
     // AccountsScreen(),
     // EmailsScreen(),
@@ -37,14 +37,14 @@ class _MainNavigationState extends State<MainNavigation> {
         type: BottomNavigationBarType.fixed,
         // ini warna background dari bottom navigation bar
         backgroundColor: Colors.grey,
-        selectedItemColor: Colors.brown,
+        selectedItemColor: Colors.green,
         unselectedItemColor: Colors.black87,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
             icon: Icon(Icons.confirmation_number),
             label: 'Ticket',
           ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           // BottomNavigationBarItem(icon: Icon(Icons.devices), label: 'Devices'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'My Accounts'),
           // BottomNavigationBarItem(icon: Icon(Icons.email), label: 'Emails'),
