@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(height: 16),
                             const Text(
-                              'TractIT',
+                              'TrackIT',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w800,

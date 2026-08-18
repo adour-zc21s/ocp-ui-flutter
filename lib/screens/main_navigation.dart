@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Import halaman-halaman yang digunakan pada Bottom Navigation
 import 'home/home_screen.dart';
 import 'ticket/ticket_screen.dart';
 
@@ -14,41 +13,61 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 1;
 
-  // Daftar tampilan layar
   final List<Widget> _screens = const [
     TicketScreen(),
     HomeScreen(),
-    // DevicesScreen(),
-    // AccountsScreen(),
-    // EmailsScreen(),
+    Placeholder(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(index: _currentIndex, children: _screens),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
-        // ini warna background dari bottom navigation bar
-        backgroundColor: Colors.grey,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.black87,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.confirmation_number),
-            label: 'Ticket',
+
+      // 🚀 CONTAINER MENEMPEL DI BAWAH DENGAN SUDUT ATAS MEMBULAT
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(24.0), // Melengkung di sudut kiri atas
+            topRight: Radius.circular(24.0), // Melengkung di sudut kanan atas
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          // BottomNavigationBarItem(icon: Icon(Icons.devices), label: 'Devices'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'My Accounts'),
-          // BottomNavigationBarItem(icon: Icon(Icons.email), label: 'Emails'),
-        ],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1), // Bayangan ke arah atas
+              blurRadius: 10,
+              offset: const Offset(0, -3),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(24.0),
+            topRight: Radius.circular(24.0),
+          ),
+          child: BottomNavigationBar(
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.grey.shade200,
+            selectedItemColor: Colors.green,
+            unselectedItemColor: Colors.black87,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.confirmation_number),
+                label: 'Ticket',
+              ),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'My Accounts',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

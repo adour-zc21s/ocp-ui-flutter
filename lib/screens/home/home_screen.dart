@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'TractIT',
+          'TrackIT',
           style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.transparent,
@@ -77,7 +77,7 @@ class HomeScreen extends StatelessWidget {
             const Text(
               'Main Menu',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 14,
                 color: Colors.black87,
                 fontWeight: FontWeight.bold,
               ),
@@ -118,7 +118,7 @@ class WelcomeBanner extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Colors.black38, Colors.grey]),
+        gradient: const LinearGradient(colors: [Colors.green, Color.fromARGB(255, 21, 12, 73)]),
         borderRadius: BorderRadius.circular(16),
       ),
       child: const Column(
@@ -128,14 +128,14 @@ class WelcomeBanner extends StatelessWidget {
             'Halo, Admin',
             style: TextStyle(
               color: Colors.black87,
-              fontSize: 20,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 5),
           Text(
             'Mau mengelola apa hari ini?',
-            style: TextStyle(color: Colors.white70, fontSize: 14),
+            style: TextStyle(color: Colors.white70, fontSize: 12),
           ),
         ],
       ),
