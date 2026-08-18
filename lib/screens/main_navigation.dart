@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'home/home_screen.dart';
 import 'ticket/ticket_screen.dart';
+import 'account/my_account_screen.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -16,7 +17,7 @@ class _MainNavigationState extends State<MainNavigation> {
   final List<Widget> _screens = const [
     TicketScreen(),
     HomeScreen(),
-    Placeholder(),
+    MyAccountScreen(),
   ];
 
   @override

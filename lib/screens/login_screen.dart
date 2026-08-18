@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     const primaryNeon = Colors.green;
-    const secondaryGlow = Colors.grey;
+    // const secondaryGlow = Colors.grey;
     const cardBackground = Color.fromRGBO(66, 66, 66, 1);
 
     return Container(
