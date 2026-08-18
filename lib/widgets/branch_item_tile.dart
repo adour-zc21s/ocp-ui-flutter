@@ -19,7 +19,7 @@ class BranchItemTile extends StatelessWidget {
         leading: CircleAvatar(
           backgroundColor: Colors.grey.shade300,
           child: Icon(
-            Icons.location_city,
+            Icons.flag,
             color: Colors.black54,
           ),
         ),

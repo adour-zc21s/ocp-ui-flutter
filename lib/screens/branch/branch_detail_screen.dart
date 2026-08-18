@@ -24,7 +24,7 @@ class BranchDetailScreen extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const Icon(
-                    Icons.developer_board,
+                    Icons.flag,
                     size: 40,
                     color: Colors.grey,
                   ),

@@ -24,7 +24,7 @@ class DeviceDetailScreen extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const Icon(
-                    Icons.developer_board,
+                    Icons.devices,
                     size: 40,
                     color: Colors.grey,
                   ),

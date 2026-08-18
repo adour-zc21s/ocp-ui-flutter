@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
       },
       {
         'title': 'Branches',
-        'icon': Icons.location_city,
+        'icon': Icons.flag,
         'color': Colors.green.shade700,
         'screen': const BranchScreen(),
       },
