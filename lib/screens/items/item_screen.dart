@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import '../../models/item_model.dart';
 import '../../services/item_service.dart';
+import 'item_detail_screen.dart';
 
 class ItemScreen extends StatefulWidget {
   const ItemScreen({super.key});
@@ -51,13 +52,11 @@ class _ItemScreenState extends State<ItemScreen> {
             onRefresh: () async => _refreshItems(),
             child: GridView.builder(
               padding: const EdgeInsets.all(12.0),
-              // 👈 Pengaturan Grid 2 Kolom
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // 2 Kolom per baris
-                crossAxisSpacing: 10, // Jarak antar kolom (samping)
-                mainAxisSpacing: 10, // Jarak antar baris (atas-bawah)
-                childAspectRatio:
-                    2, // Rasio tinggi-lebar card (sesuaikan jika teks terpotong)
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 2,
               ),
               itemCount: items.length,
               itemBuilder: (context, index) {
@@ -67,48 +66,60 @@ class _ItemScreenState extends State<ItemScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Nama Item
-                        Text(
-                          item.name,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  // 🚀 BUNGKUS DENGAN INKWELL UNTUK MENDETEKSI SENTUHAN / KLIK
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ItemDetailScreen(item: item),
                         ),
-                        const SizedBox(height: 6),
-
-                        // Harga Item
-                        Text(
-                          '${(double.tryParse(item.price.toString()) ?? 0).toStringAsFixed(0)}K',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-
-                        // Deskripsi Item (Mengisi sisa ruang)
-                        if (item.description.isNotEmpty)
-                          Expanded(
-                            child: Text(
-                              item.description,
-                              maxLines: 4,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
-                              ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Nama Item
+                          Text(
+                            item.name,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                      ],
+                          const SizedBox(height: 6),
+
+                          // Harga Item
+                          Text(
+                            '${(double.tryParse(item.price.toString()) ?? 0).toStringAsFixed(0)}K',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+
+                          // Deskripsi Item (Mengisi sisa ruang)
+                          if (item.description.isNotEmpty)
+                            Expanded(
+                              child: Text(
+                                item.description,
+                                maxLines: 4,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                   ),
                 );
