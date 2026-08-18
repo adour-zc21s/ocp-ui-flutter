@@ -66,7 +66,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     const primaryNeon = Colors.green;
     // const secondaryGlow = Colors.grey;
-    const cardBackground = Color.fromRGBO(66, 66, 66, 1);
+    // const seaBackground = Color.fromRGBO(0, 127, 159, 1);
+    const cardBackground = Color.fromRGBO(0, 66, 66, 1);
 
     return Container(
       // 1. WALLPAPER BACKGROUND DARI ASSETS
