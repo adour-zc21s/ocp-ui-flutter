@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
       },
       {
         'title': 'Items',
-        'icon': Icons.inventory,
+        'icon': Icons.storefront,
         'color': Colors.green.shade700,
         'screen': const ItemScreen(),
       },

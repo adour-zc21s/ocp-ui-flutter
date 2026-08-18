@@ -24,7 +24,7 @@ class ItemDetailScreen extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const Icon(
-                    Icons.developer_board,
+                    Icons.local_mall,
                     size: 40,
                     color: Colors.grey,
                   ),
