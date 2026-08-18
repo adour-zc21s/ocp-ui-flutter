@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Enter your credentials to access system',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.black45.withOpacity(0.6),
+                                color: Colors.black26.withOpacity(0.6),
                               ),
                             ),
                             const SizedBox(height: 32),
@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 prefixIcon: const Icon(
                                   Icons.email_outlined,
-                                  color: primaryNeon,
+                                  color:Colors.white,
                                 ),
                                 filled: true,
                                 fillColor: Colors.black.withOpacity(0.3),
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: const BorderSide(
-                                    color: primaryNeon,
+                                    color:Colors.white,
                                     width: 1.5,
                                   ),
                                 ),
