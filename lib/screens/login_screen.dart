@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ), // 👈 Gambar dari assets
           fit: BoxFit.cover, // Memenuhi seluruh layar tanpa memukul rasio
           colorFilter: ColorFilter.mode(
-            Colors.black54,
+            Colors.black87,
             BlendMode.darken,
           ), // Memberikan efek gelap pada wallpaper
         ),
@@ -97,11 +97,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Container(
                         padding: const EdgeInsets.all(28.0),
                         decoration: BoxDecoration(
-                          color: cardBackground.withOpacity(0.85),
+                          color: Colors.transparent,
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: primaryNeon.withOpacity(0.15),
+                              color: Colors.transparent,
                               blurRadius: 25,
                               spreadRadius: 2,
                             ),
@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 prefixIcon: const Icon(
                                   Icons.lock_outline,
-                                  color: primaryNeon,
+                                  color: Colors.white,
                                 ),
                                 filled: true,
                                 fillColor: Colors.black.withOpacity(0.3),

@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.grey.shade200, // Warna background box
+                color: Colors.grey.shade100, // Warna background box
                 borderRadius: BorderRadius.circular(
                   24.0,
                 ), // Melengkungkan sudut (Oval/Rounded)
@@ -119,7 +119,7 @@ class WelcomeBanner extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Colors.green, Color.fromARGB(255, 21, 12, 73)],
+          colors: [Colors.green, Colors.white70],
         ),
         borderRadius: BorderRadius.circular(16),
       ),

@@ -53,7 +53,7 @@ class _MainNavigationState extends State<MainNavigation> {
               });
             },
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.grey.shade200,
+            backgroundColor: Colors.grey.shade100,
             selectedItemColor: Colors.green,
             unselectedItemColor: Colors.black87,
             items: const [

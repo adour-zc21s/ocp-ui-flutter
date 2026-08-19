@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true,
-        scaffoldBackgroundColor: Colors.grey,
+        scaffoldBackgroundColor: Colors.grey.shade200,
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
             TargetPlatform.android:
