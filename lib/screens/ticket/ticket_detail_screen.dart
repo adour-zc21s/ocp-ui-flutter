@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../models/ticket_model.dart';
 import '../../models/ticket_comment_model.dart';
 import '../../services/ticket_service.dart';
-import '../../widgets/ticket_header_card.dart'; // 👈 Import Header Widget
-import '../../widgets/ticket_item_tile.dart'; // 👈 Import Item Tile Widget
+import '../../widgets/ticket_header_card.dart';
+import '../../widgets/ticket_item_tile.dart';
 
 class TicketDetailScreen extends StatefulWidget {
   final Ticket ticket;
@@ -20,6 +20,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
 
   late Future<List<TicketComment>> _futureComments;
   bool _isSending = false;
+  bool _isClosing = false;
 
   @override
   void initState() {
@@ -39,6 +40,53 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     super.dispose();
   }
 
+  // Fungsi untuk Menutup Tiket
+  Future<void> _handleCloseTicket() async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Tutup Tiket'),
+        content: const Text('Apakah Anda yakin ingin menutup tiket ini?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Batal'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text(
+              'Ya, Tutup',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      setState(() => _isClosing = true);
+      try {
+        await _ticketService.closeTicket(widget.ticket.id);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Tiket berhasil ditutup')),
+          );
+          // Kembali ke halaman sebelumnya dan memberi sinyal refresh (true)
+          Navigator.pop(context, true);
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Gagal menutup tiket: $e')));
+        }
+      } finally {
+        if (mounted) setState(() => _isClosing = false);
+      }
+    }
+  }
+
   Future<void> _submitComment() async {
     final text = _commentController.text.trim();
     if (text.isEmpty) return;
@@ -46,7 +94,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     setState(() => _isSending = true);
 
     try {
-      await _ticketService.addComment(widget.ticket.id, text,);
+      await _ticketService.addComment(widget.ticket.id, text);
       _commentController.clear();
       _loadComments();
     } catch (e) {
@@ -63,10 +111,28 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Detail Tiket #${widget.ticket.id}')),
+      appBar: AppBar(
+        title: Text('Detail Tiket #${widget.ticket.id}'),
+        actions: [
+          // 👈 TOMBOL CLOSE TIKET PADA APPBAR
+          _isClosing
+              ? const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                )
+              : IconButton(
+                  icon: const Icon(Icons.lock, color: Colors.red),
+                  tooltip: 'Close Ticket',
+                  onPressed: _handleCloseTicket,
+                ),
+        ],
+      ),
       body: Column(
         children: [
-          // 1. PEMANGGILAN WIDGET TICKET HEADER CARD
+          // 1. WIDGET TICKET HEADER CARD
           TicketHeaderCard(ticket: widget.ticket),
 
           const Padding(
@@ -93,7 +159,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                     return Center(
                       child: Text(
                         'Terjadi kesalahan: ${snapshot.error}',
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     );
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -150,13 +216,10 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
             ),
           ),
 
-          // 3. WIDGET CONTOH PEMANGGILAN TICKET ITEM TILE (Jika ingin menampilkan ringkasan di bagian bawah)
+          // 3. WIDGET TICKET ITEM TILE
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: TicketItemTile(
-              ticket: widget.ticket,
-              onTap: null, // Tanpa aksi navigasi ulang
-            ),
+            child: TicketItemTile(ticket: widget.ticket, onTap: null),
           ),
 
           // 4. FORM INPUT TAMBAH KOMENTAR

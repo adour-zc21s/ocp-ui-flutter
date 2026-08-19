@@ -267,4 +267,26 @@ class TicketService {
       rethrow;
     }
   }
+
+  Future<void> closeTicket(String id) async {
+    try {
+      final token = await AuthService.getToken();
+      final url = Uri.parse(ApiConfig.ticketClose(id));
+
+      final headers = <String, String>{'Content-Type': 'application/json'};
+
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      // Menggunakan HTTP POST atau PUT (sesuaikan dengan metode di backend Anda)
+      final response = await http.put(url, headers: headers);
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw Exception('Gagal menutup tiket: ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

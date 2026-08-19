@@ -77,14 +77,20 @@ class _TicketScreenState extends State<TicketScreen> {
                     itemBuilder: (context, index) {
                       return TicketItemTile(
                         ticket: tickets[index],
-                        onTap: () {
-                          Navigator.push(
+                        onTap: () async {
+                          // 👈 Tambahkan 'async' dan 'await' untuk menangkap hasil kembalian (result)
+                          final result = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
                                   TicketDetailScreen(ticket: tickets[index]),
                             ),
                           );
+
+                          // Jika bernilai true (dari close ticket/update), jalankan refresh
+                          if (result == true) {
+                            _refreshTickets();
+                          }
                         },
                       );
                     },

@@ -23,6 +23,7 @@ class ApiConfig {
 
   // Method pembantu untuk URL spesifik ID (contoh: /tickets/123)
   static String ticketDetail(String id) => '$tickets/$id';
+  static String ticketClose(String id) => '$tickets/$id/close';
   static String branchDetailStatus(dynamic id) => '$brances/$id/status';
   static String monitoringDetailStatus(dynamic id) => '$monitoring/$id/status';
   static String itemDetail(String id) => '$items/$id';
