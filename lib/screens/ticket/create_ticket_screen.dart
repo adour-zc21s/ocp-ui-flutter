@@ -12,19 +12,24 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
   final _formKey = GlobalKey<FormState>();
   // Controller & Variable State
   final _judulController = TextEditingController();
-  final _departmentController = TextEditingController();
-  final _branchController = TextEditingController();
-
+  // Selected Values
+  String? _selectedDepartment;
+  String? _selectedBranch;
   String? _selectedEmailNotification;
+  // Futures
   late Future<List<Map<String, String>>> _futureAccounts;
+  late Future<List<Map<String, String>>> _futureDepartments;
+  late Future<List<Map<String, String>>> _futureBranches;
   final TicketService _ticketService = TicketService();
   bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    // Memuat data email dari API saat screen pertama kali dibuka
+    // Memuat seluruh data pendukung dari API
     _futureAccounts = _ticketService.fetchTicketAccounts();
+    _futureDepartments = _ticketService.fetchTicketDepartments();
+    _futureBranches = _ticketService.fetchTicketBranches();
   }
 
   Future<void> _submitTicket() async {
@@ -36,9 +41,8 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
         await _ticketService.createTicket(
           judul: _judulController.text,
           emailNotification: _selectedEmailNotification!,
-          branch: _branchController
-              .text, // Atau _branchController.text jika berupa TextField
-          departemen: _departmentController.text,
+          branch: _selectedBranch!,
+          departemen: _selectedDepartment!,
         );
 
         if (mounted) {
@@ -130,31 +134,76 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
               ),
               const SizedBox(height: 16),
 
-              // 3. DEPARTMENT
-              TextFormField(
-                controller: _departmentController,
-                decoration: const InputDecoration(
-                  labelText: 'Department',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.business),
-                ),
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Department wajib diisi'
-                    : null,
+              // 3. DEPARTMENT DROPDOWN
+              FutureBuilder<List<Map<String, String>>>(
+                future: _futureDepartments,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const OutlineDropdownLoading(
+                      label: 'Memuat Department...',
+                    );
+                  } else if (snapshot.hasError ||
+                      !snapshot.hasData ||
+                      snapshot.data!.isEmpty) {
+                    return const Text('Gagal memuat department');
+                  }
+
+                  return DropdownButtonFormField<String>(
+                    value: _selectedDepartment,
+                    decoration: const InputDecoration(
+                      labelText: 'Department',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.business),
+                    ),
+                    items: snapshot.data!.map((item) {
+                      return DropdownMenuItem<String>(
+                        value:
+                            item['name'], // Gunakan item['id'] jika backend menerima ID
+                        child: Text(item['name']!),
+                      );
+                    }).toList(),
+                    onChanged: (val) =>
+                        setState(() => _selectedDepartment = val),
+                    validator: (val) =>
+                        val == null ? 'Department wajib dipilih' : null,
+                  );
+                },
               ),
               const SizedBox(height: 16),
 
-              // 4. BRANCH
-              TextFormField(
-                controller: _branchController,
-                decoration: const InputDecoration(
-                  labelText: 'Branch',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.location_city),
-                ),
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Branch wajib diisi'
-                    : null,
+              // 4. BRANCH DROPDOWN
+              FutureBuilder<List<Map<String, String>>>(
+                future: _futureBranches,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const OutlineDropdownLoading(
+                      label: 'Memuat Branch...',
+                    );
+                  } else if (snapshot.hasError ||
+                      !snapshot.hasData ||
+                      snapshot.data!.isEmpty) {
+                    return const Text('Gagal memuat branch');
+                  }
+
+                  return DropdownButtonFormField<String>(
+                    value: _selectedBranch,
+                    decoration: const InputDecoration(
+                      labelText: 'Branch',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.location_city),
+                    ),
+                    items: snapshot.data!.map((item) {
+                      return DropdownMenuItem<String>(
+                        value:
+                            item['name'], // Gunakan item['id'] jika backend menerima ID
+                        child: Text(item['name']!),
+                      );
+                    }).toList(),
+                    onChanged: (val) => setState(() => _selectedBranch = val),
+                    validator: (val) =>
+                        val == null ? 'Branch wajib dipilih' : null,
+                  );
+                },
               ),
               const SizedBox(height: 24),
 

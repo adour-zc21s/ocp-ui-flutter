@@ -18,6 +18,8 @@ class ApiConfig {
   static const String items = '$baseUrl/items';
   static const String monitoring = '$baseUrl/monitoring';
   static const String ticketAccounts = '$baseUrl/tickets/accounts';
+  static const String ticketDepartments = '$baseUrl/tickets/departments';
+  static const String ticketBranches = '$baseUrl/tickets/branches';
 
   // Method pembantu untuk URL spesifik ID (contoh: /tickets/123)
   static String ticketDetail(String id) => '$tickets/$id';

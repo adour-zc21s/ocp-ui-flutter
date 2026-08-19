@@ -175,4 +175,96 @@ class TicketService {
       rethrow;
     }
   }
+
+  // Fetch List Department
+  Future<List<Map<String, String>>> fetchTicketDepartments() async {
+    try {
+      final token = await AuthService.getToken();
+      final url = Uri.parse(ApiConfig.ticketDepartments);
+
+      final headers = <String, String>{'Content-Type': 'application/json'};
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+
+        final List<Map<String, String>> list = data
+            .map<Map<String, String>>((item) {
+              if (item is Map<String, dynamic>) {
+                return {
+                  'id':
+                      item['id']?.toString() ?? item['name']?.toString() ?? '',
+                  'name':
+                      item['name']?.toString() ??
+                      item['departmentName']?.toString() ??
+                      '',
+                };
+              }
+              return {'id': item.toString(), 'name': item.toString()};
+            })
+            .where((element) => element['name']!.isNotEmpty)
+            .toList();
+
+        list.sort(
+          (a, b) =>
+              a['name']!.toLowerCase().compareTo(b['name']!.toLowerCase()),
+        );
+        return list;
+      } else {
+        throw Exception('Gagal memuat department: ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // Fetch List Branch
+  Future<List<Map<String, String>>> fetchTicketBranches() async {
+    try {
+      final token = await AuthService.getToken();
+      final url = Uri.parse(ApiConfig.ticketBranches);
+
+      final headers = <String, String>{'Content-Type': 'application/json'};
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+
+        final List<Map<String, String>> list = data
+            .map<Map<String, String>>((item) {
+              if (item is Map<String, dynamic>) {
+                return {
+                  'id':
+                      item['id']?.toString() ?? item['name']?.toString() ?? '',
+                  'name':
+                      item['name']?.toString() ??
+                      item['branchName']?.toString() ??
+                      '',
+                };
+              }
+              return {'id': item.toString(), 'name': item.toString()};
+            })
+            .where((element) => element['name']!.isNotEmpty)
+            .toList();
+
+        list.sort(
+          (a, b) =>
+              a['name']!.toLowerCase().compareTo(b['name']!.toLowerCase()),
+        );
+        return list;
+      } else {
+        throw Exception('Gagal memuat branch: ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
