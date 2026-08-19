@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../../models/ticket_model.dart';
 import '../../services/ticket_service.dart';
 import 'ticket_detail_screen.dart';
-import '../../widgets/ticket_item_tile.dart'; // 👈 Import widget kartu
+import 'create_ticket_screen.dart'; // 👈 Import halaman tambah tiket
+import '../../widgets/ticket_item_tile.dart';
 
 class TicketScreen extends StatefulWidget {
   const TicketScreen({super.key});
@@ -80,12 +81,10 @@ class _TicketScreenState extends State<TicketScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TicketDetailScreen(
-                                ticket: tickets[index],
-                              ),
+                              builder: (context) =>
+                                  TicketDetailScreen(ticket: tickets[index]),
                             ),
                           );
-                          // Aksi klik ke detail tiket
                         },
                       );
                     },
@@ -97,6 +96,26 @@ class _TicketScreenState extends State<TicketScreen> {
             // TAB 2: TICKET CLOSE
             const Center(child: Text('Daftar Ticket Close (Selesai)')),
           ],
+        ),
+
+        // 👈 TAMBAHKAN FLOATING ACTION BUTTON DI SINI
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.green,
+          child: const Icon(Icons.add, color: Colors.white),
+          onPressed: () async {
+            // Navigasi ke CreateTicketScreen dan tunggu hingga user kembali
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CreateTicketScreen(),
+              ),
+            );
+
+            // Jika berhasil membuat tiket (result == true), muat ulang data tiket
+            if (result == true) {
+              _refreshTickets();
+            }
+          },
         ),
       ),
     );

@@ -96,4 +96,73 @@ class TicketService {
       rethrow;
     }
   }
+
+  Future<void> createTicket({
+    required String judul,
+    required String emailNotification,
+    required String branch,
+    required String departemen,
+  }) async {
+    try {
+      final token = await AuthService.getToken();
+
+      final url = Uri.parse(ApiConfig.tickets);
+
+      final headers = <String, String>{'Content-Type': 'application/json'};
+
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      final body = jsonEncode({
+        'judul': judul,
+        'emailNotification': emailNotification,
+        'branch': branch,
+        'departemen': departemen,
+      });
+
+      final response = await http.post(url, headers: headers, body: body);
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw Exception('Gagal membuat tiket: ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+Future<List<String>> fetchTicketAccounts() async {
+    try {
+      final token = await AuthService.getToken();
+      final url = Uri.parse(ApiConfig.ticketAccounts);
+
+      final headers = <String, String>{'Content-Type': 'application/json'};
+
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+
+        // Ambil kolom 'email' dari setiap objek JSON
+        return data
+            .map<String>((account) {
+              if (account is Map<String, dynamic>) {
+                return account['email']?.toString() ?? '';
+              }
+              return account
+                  .toString(); // Jika response sudah berupa String list
+            })
+            .where((email) => email.isNotEmpty)
+            .toList();
+      } else {
+        throw Exception('Gagal memuat akun: ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
