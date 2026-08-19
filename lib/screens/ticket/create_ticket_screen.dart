@@ -16,7 +16,7 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
   final _branchController = TextEditingController();
 
   String? _selectedEmailNotification;
-  late Future<List<String>> _futureAccounts;
+  late Future<List<Map<String, String>>> _futureAccounts;
   final TicketService _ticketService = TicketService();
   bool _isLoading = false;
 
@@ -81,41 +81,45 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
               const SizedBox(height: 16),
 
               // 2. EMAIL NOTIFICATION
-              FutureBuilder<List<String>>(
+              FutureBuilder<List<Map<String, String>>>(
                 future: _futureAccounts,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const OutlineDropdownLoading(
-                      label: 'Memuat Email...',
+                      label: 'Memuat Akun...',
                     );
                   } else if (snapshot.hasError) {
                     return Text(
-                      'Gagal memuat daftar email: ${snapshot.error}',
+                      'Gagal memuat akun: ${snapshot.error}',
                       style: const TextStyle(color: Colors.red),
                     );
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Text('Tidak ada akun email tersedia');
+                    return const Text('Tidak ada akun tersedia');
                   }
 
-                  final emailList = snapshot.data!;
+                  final accounts = snapshot.data!;
 
                   return DropdownButtonFormField<String>(
-                    value: _selectedEmailNotification,
+                    value:
+                        _selectedEmailNotification, // Variabel ini tetap menampung String (email)
                     decoration: const InputDecoration(
                       labelText: 'Email Notification',
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.email),
                     ),
-                    // Hanya menampilkan teks email pada item dropdown
-                    items: emailList.map((email) {
+                    items: accounts.map((account) {
                       return DropdownMenuItem<String>(
-                        value: email,
-                        child: Text(email),
+                        value:
+                            account['email'], // 👈 Nilai EMAIL yang akan disimpan/dikirim ke API
+                        child: Text(
+                          account['name']!,
+                        ), // 👈 Nilai NAMA yang ditampilkan di layar
                       );
                     }).toList(),
                     onChanged: (value) {
                       setState(() {
-                        _selectedEmailNotification = value;
+                        _selectedEmailNotification =
+                            value; // Menyimpan email yang dipilih
                       });
                     },
                     validator: (value) => value == null || value.isEmpty
@@ -124,6 +128,7 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
                   );
                 },
               ),
+              const SizedBox(height: 16),
 
               // 3. DEPARTMENT
               TextFormField(
@@ -168,7 +173,7 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
                       ),
               ),
             ],
-          )
+          ),
         ),
       ),
     );

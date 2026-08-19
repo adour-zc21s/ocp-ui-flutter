@@ -131,7 +131,7 @@ class TicketService {
     }
   }
 
-Future<List<String>> fetchTicketAccounts() async {
+  Future<List<Map<String, String>>> fetchTicketAccounts() async {
     try {
       final token = await AuthService.getToken();
       final url = Uri.parse(ApiConfig.ticketAccounts);
@@ -147,17 +147,27 @@ Future<List<String>> fetchTicketAccounts() async {
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
 
-        // Ambil kolom 'email' dari setiap objek JSON
-        return data
-            .map<String>((account) {
+        // Ambil name dan email dari response API
+        final List<Map<String, String>> accounts = data
+            .map<Map<String, String>>((account) {
               if (account is Map<String, dynamic>) {
-                return account['email']?.toString() ?? '';
+                return {
+                  'name': account['name']?.toString() ?? 'Tanpa Nama',
+                  'email': account['email']?.toString() ?? '',
+                };
               }
-              return account
-                  .toString(); // Jika response sudah berupa String list
+              return {'name': account.toString(), 'email': account.toString()};
             })
-            .where((email) => email.isNotEmpty)
+            .where((acc) => acc['email']!.isNotEmpty)
             .toList();
+
+        // Urutkan berdasarkan name (A-Z)
+        accounts.sort(
+          (a, b) =>
+              a['name']!.toLowerCase().compareTo(b['name']!.toLowerCase()),
+        );
+
+        return accounts;
       } else {
         throw Exception('Gagal memuat akun: ${response.statusCode}');
       }
