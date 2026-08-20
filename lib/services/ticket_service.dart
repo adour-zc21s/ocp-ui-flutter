@@ -12,7 +12,7 @@ class TicketService {
 
       // Menggunakan URL persis seperti uji coba Postman
       final url = Uri.parse(
-        '${ApiConfig.tickets}?page=0&size=10&sort=createdAt,desc',
+        '${ApiConfig.tickets}?page=0&size=50&sort=createdAt,desc',
       );
 
       final headers = <String, String>{'Content-Type': 'application/json'};
