@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const primaryNeon = Colors.green;
+    const primaryNeon = Color.fromARGB(255, 133, 230, 137);
     // const secondaryGlow = Colors.grey;
     // const seaBackground = Color.fromRGBO(0, 127, 159, 1);
     const cardBackground = Color.fromRGBO(0, 66, 66, 1);
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ), // 👈 Gambar dari assets
           fit: BoxFit.cover, // Memenuhi seluruh layar tanpa memukul rasio
           colorFilter: ColorFilter.mode(
-            Colors.black87,
+            Colors.black12,
             BlendMode.darken,
           ), // Memberikan efek gelap pada wallpaper
         ),
@@ -115,15 +115,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.black45,
+                                color: Colors.black54,
                                 border: Border.all(
-                                  color: Colors.black54,
+                                  color: Colors.black12,
                                 ),
                               ),
                               child: const Icon(
                                 Icons.verified_user_outlined,
                                 size: 52,
-                                color: primaryNeon,
+                                color: Colors.green,
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w800,
-                                color: primaryNeon,
+                                color: Colors.black54,
                                 letterSpacing: 2.0,
                               ),
                             ),
@@ -170,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: const BorderSide(
-                                    color:Colors.white,
+                                    color: primaryNeon,
                                     width: 1.5,
                                   ),
                                 ),

@@ -44,12 +44,12 @@ class _AppVersionFooterState extends State<AppVersionFooter> {
         children: [
           Text(
             _appVersion,
-            style: const TextStyle(fontSize: 11, color: Colors.grey),
+            style: const TextStyle(fontSize: 11, color: Colors.black54),
           ),
           const SizedBox(height: 2),
           const Text(
             '2026 Powered by',
-            style: TextStyle(fontSize: 12, color: Colors.grey),
+            style: TextStyle(fontSize: 12, color: Colors.black54),
           ),
           const SizedBox(height: 2),
           const Text(
@@ -57,7 +57,7 @@ class _AppVersionFooterState extends State<AppVersionFooter> {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.bold,
-              color: Colors.grey,
+              color: Colors.black54,
             ),
           ),
         ],
