@@ -102,6 +102,7 @@ class TicketService {
     required String emailNotification,
     required String branch,
     required String departemen,
+    required String jenisDukungan,
   }) async {
     try {
       final token = await AuthService.getToken();
@@ -119,6 +120,7 @@ class TicketService {
         'emailNotification': emailNotification,
         'branch': branch,
         'departemen': departemen,
+        'jenisDukungan': jenisDukungan,
       });
 
       final response = await http.post(url, headers: headers, body: body);
@@ -262,6 +264,52 @@ class TicketService {
         return list;
       } else {
         throw Exception('Gagal memuat branch: ${response.statusCode}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // Fetch support ticket
+  Future<List<Map<String, String>>> fetchTicketSupportType() async {
+    try {
+      final token = await AuthService.getToken();
+      final url = Uri.parse(ApiConfig.ticketSupport);
+
+      final headers = <String, String>{'Content-Type': 'application/json'};
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+
+        final List<Map<String, String>> list = data
+            .map<Map<String, String>>((item) {
+              if (item is Map<String, dynamic>) {
+                return {
+                  'id':
+                      item['id']?.toString() ?? item['name']?.toString() ?? '',
+                  'name':
+                      item['name']?.toString() ??
+                      item['branchName']?.toString() ??
+                      '',
+                };
+              }
+              return {'id': item.toString(), 'name': item.toString()};
+            })
+            .where((element) => element['name']!.isNotEmpty)
+            .toList();
+
+        list.sort(
+          (a, b) =>
+              a['name']!.toLowerCase().compareTo(b['name']!.toLowerCase()),
+        );
+        return list;
+      } else {
+        throw Exception('Gagal memuat support type: ${response.statusCode}');
       }
     } catch (e) {
       rethrow;

@@ -13,10 +13,12 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
   // Controller & Variable State
   final _judulController = TextEditingController();
   // Selected Values
+  String? _selectedSupportType;
   String? _selectedDepartment;
   String? _selectedBranch;
   String? _selectedEmailNotification;
   // Futures
+  late Future<List<Map<String, String>>> _futureSupportType;
   late Future<List<Map<String, String>>> _futureAccounts;
   late Future<List<Map<String, String>>> _futureDepartments;
   late Future<List<Map<String, String>>> _futureBranches;
@@ -27,6 +29,7 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
   void initState() {
     super.initState();
     // Memuat seluruh data pendukung dari API
+    _futureSupportType = _ticketService.fetchTicketSupportType();
     _futureAccounts = _ticketService.fetchTicketAccounts();
     _futureDepartments = _ticketService.fetchTicketDepartments();
     _futureBranches = _ticketService.fetchTicketBranches();
@@ -43,6 +46,7 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
           emailNotification: _selectedEmailNotification!,
           branch: _selectedBranch!,
           departemen: _selectedDepartment!,
+          jenisDukungan: _selectedSupportType!,
         );
 
         if (mounted) {
@@ -81,6 +85,43 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
                 ),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Judul wajib diisi' : null,
+              ),
+              const SizedBox(height: 16),
+
+              // SUPPORT TYPE
+              FutureBuilder<List<Map<String, String>>>(
+                future: _futureSupportType,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const OutlineDropdownLoading(
+                      label: 'Loading Support Type...',
+                    );
+                  } else if (snapshot.hasError ||
+                      !snapshot.hasData ||
+                      snapshot.data!.isEmpty) {
+                    return const Text('Gagal memuat support type');
+                  }
+
+                  return DropdownButtonFormField<String>(
+                    value: _selectedSupportType,
+                    decoration: const InputDecoration(
+                      labelText: 'Support Type',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.engineering),
+                    ),
+                    items: snapshot.data!.map((item) {
+                      return DropdownMenuItem<String>(
+                        value:
+                            item['name'], // Gunakan item['id'] jika backend menerima ID
+                        child: Text(item['name']!),
+                      );
+                    }).toList(),
+                    onChanged: (val) =>
+                        setState(() => _selectedSupportType = val),
+                    validator: (val) =>
+                        val == null ? 'Support Type wajib dipilih' : null,
+                  );
+                },
               ),
               const SizedBox(height: 16),
 
@@ -190,7 +231,7 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
                     decoration: const InputDecoration(
                       labelText: 'Branch',
                       border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.location_city),
+                      prefixIcon: Icon(Icons.flag),
                     ),
                     items: snapshot.data!.map((item) {
                       return DropdownMenuItem<String>(
