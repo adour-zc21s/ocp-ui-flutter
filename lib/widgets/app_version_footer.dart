@@ -53,7 +53,7 @@ class _AppVersionFooterState extends State<AppVersionFooter> {
           ),
           const SizedBox(height: 2),
           const Text(
-            'Open Class Programming',
+            'Riset Inovasi Ekosistem Komputasi',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.bold,
