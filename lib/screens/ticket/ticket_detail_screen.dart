@@ -124,7 +124,8 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                   ),
                 )
               : IconButton(
-                  icon: const Icon(Icons.cancel, color: Colors.red),
+                  iconSize: 37.0,
+                  icon: const Icon(Icons.cancel_presentation, color: Colors.red),
                   tooltip: 'Close Ticket',
                   onPressed: _handleCloseTicket,
                 ),
