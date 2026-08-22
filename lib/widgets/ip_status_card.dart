@@ -86,7 +86,7 @@ class IpStatusCard extends StatelessWidget {
 
             // Tombol Test Koneksi Manual
             IconButton(
-              icon: const Icon(Icons.network_check, color: Colors.blue),
+              icon: const Icon(Icons.monitor_heart, color: Colors.blue),
               tooltip: 'Test Koneksi',
               onPressed: isLoading ? null : onTestPressed,
             ),
