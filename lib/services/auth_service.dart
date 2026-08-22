@@ -54,7 +54,7 @@ class AuthService {
 
   static Future<String?> getUserEmail() async {
     final prefs = await SharedPreferences.getInstance();
-    print('Membaca commented by: $prefs');
+    // print('Membaca commented by: $prefs');
     return prefs.getString('user_email'); // Sesuaikan key simpanan email Anda
   }
 }
