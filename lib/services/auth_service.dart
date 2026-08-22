@@ -17,8 +17,8 @@ class AuthService {
           )
           .timeout(const Duration(seconds: 10));
 
-      print('Status Code Login: ${response.statusCode}');
-      print('Response Body Login: ${response.body}');
+      // print('Status Code Login: ${response.statusCode}');
+      // print('Response Body Login: ${response.body}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final Map<String, dynamic> body = jsonDecode(response.body);
@@ -29,9 +29,10 @@ class AuthService {
         if (token != null && token.isNotEmpty) {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('jwt_token', token);
-          print('✅ SUCCESS: Token berhasil tersimpan -> $token');
+          await prefs.setString('user_email', email);
+          // print('✅ SUCCESS: Token berhasil tersimpan -> $token');
         } else {
-          print('❌ ERROR: Key access_token tidak ditemukan di response!');
+          // print('❌ ERROR: Key access_token tidak ditemukan di response!');
         }
 
         return LoginResponse.fromJson(body);
@@ -39,7 +40,7 @@ class AuthService {
         throw Exception('Login gagal (Status: ${response.statusCode})');
       }
     } catch (e) {
-      print('Detail Error Login: $e');
+      // print('Detail Error Login: $e');
       rethrow;
     }
   }
@@ -47,7 +48,13 @@ class AuthService {
   static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt_token');
-    print('🔑 Membaca token dari SharedPreferences: $token');
+    // print('🔑 Membaca token dari SharedPreferences: $token');
     return token;
+  }
+
+  static Future<String?> getUserEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    print('Membaca commented by: $prefs');
+    return prefs.getString('user_email'); // Sesuaikan key simpanan email Anda
   }
 }

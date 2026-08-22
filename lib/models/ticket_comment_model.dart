@@ -18,7 +18,7 @@ class TicketComment {
       id: json['id']?.toString() ?? '',
       ticketId: json['ticketId']?.toString() ?? '',
       comment: json['comment'] ?? '',
-      author: json['author'] ?? json['user'] ?? 'Unknown',
+      author: json['commentedBy'] ?? json['user'] ?? 'Unknown',
       createdAt: json['createdAt']?.toString() ?? '-',
     );
   }

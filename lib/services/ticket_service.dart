@@ -70,7 +70,11 @@ class TicketService {
   }
 
   // Ini methode untuk menambahkan komentar ke tiket
-  Future<void> addComment(String ticketId, String comment) async {
+  Future<void> addComment(
+    String ticketId,
+    String comment,
+    String author, // 👈 Tambahkan parameter author/user
+  ) async {
     try {
       final token = await AuthService.getToken();
 
@@ -84,7 +88,10 @@ class TicketService {
         headers['Authorization'] = 'Bearer $token';
       }
 
-      final body = jsonEncode({'comment': comment});
+      final body = jsonEncode({
+        'comment': comment,
+        'commentedBy': author,
+        });
 
       final response = await http.post(url, headers: headers, body: body);
 

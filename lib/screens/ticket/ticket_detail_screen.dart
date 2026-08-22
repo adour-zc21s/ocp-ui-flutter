@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../models/ticket_model.dart';
 import '../../models/ticket_comment_model.dart';
 import '../../services/ticket_service.dart';
+import '../../services/auth_service.dart';
 import '../../widgets/ticket_header_card.dart';
 import '../../widgets/ticket_item_tile.dart';
 
@@ -87,6 +88,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     }
   }
 
+  // Update pada method _submitComment() di TicketDetailScreen
   Future<void> _submitComment() async {
     final text = _commentController.text.trim();
     if (text.isEmpty) return;
@@ -94,7 +96,12 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
     setState(() => _isSending = true);
 
     try {
-      await _ticketService.addComment(widget.ticket.id, text);
+      // 1. Ambil email user yang sedang login
+      final userEmail = await AuthService.getUserEmail() ?? 'Unknown User';
+
+      // 2. Kirim email tersebut sebagai argumen author ke service
+      await _ticketService.addComment(widget.ticket.id, text, userEmail);
+
       _commentController.clear();
       _loadComments();
     } catch (e) {
@@ -125,7 +132,10 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                 )
               : IconButton(
                   iconSize: 37.0,
-                  icon: const Icon(Icons.cancel_presentation, color: Colors.red),
+                  icon: const Icon(
+                    Icons.cancel_presentation,
+                    color: Colors.red,
+                  ),
                   tooltip: 'Close Ticket',
                   onPressed: _handleCloseTicket,
                 ),
