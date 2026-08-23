@@ -10,18 +10,19 @@ class ApiConfig {
   static const String login = '$baseUrl/auth/authenticate';
   static const String register = '$baseUrl/auth/register';
 
-  // Endpoint Tickets
+  // Endpoints Tickets
   static const String tickets = '$baseUrl/tickets';
+  static const String ticketAccounts = '$baseUrl/tickets/accounts';
+  static const String ticketDepartments = '$baseUrl/tickets/departments';
+  static const String ticketBranches = '$baseUrl/tickets/branches';
+  static const String ticketSupport = '$baseUrl/tickets/supporttype';
+  static const String ticketOpenRequest = '$baseUrl/tickets/open-requests';
+  // Endpoint
   static const String devices = '$baseUrl/dev';
   static const String brances = '$baseUrl/branches';
   static const String cariBranches = '$baseUrl/branches/search';
   static const String items = '$baseUrl/items';
   static const String monitoring = '$baseUrl/monitoring';
-  static const String ticketAccounts = '$baseUrl/tickets/accounts';
-  static const String ticketDepartments = '$baseUrl/tickets/departments';
-  static const String ticketBranches = '$baseUrl/tickets/branches';
-  static const String ticketSupport = '$baseUrl/tickets/supporttype';
-
   // Method pembantu untuk URL spesifik ID (contoh: /tickets/123)
   static String ticketDetail(String id) => '$tickets/$id';
   static String ticketClose(String id) => '$tickets/$id/close';

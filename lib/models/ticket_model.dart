@@ -6,16 +6,18 @@ class Ticket {
   final String judul;
   final String status;
   final String createdAt;
+  final String jenisDukungan;
 
   Ticket({
     required this.id,
     required this.judul,
     required this.status,
     required this.createdAt,
+    required this.jenisDukungan,
   });
 
   String get formattedCreatedAt => DateFormatter.formatShort(createdAt);
-  
+
   factory Ticket.fromJson(Map<String, dynamic> json) {
     return Ticket(
       id: json['id']?.toString() ?? '-',
@@ -25,6 +27,7 @@ class Ticket {
           json['createdAt']?.toString() ??
           json['createdDate']?.toString() ??
           '-',
+      jenisDukungan: json['jenisDukungan'] ?? '',
     );
   }
 }

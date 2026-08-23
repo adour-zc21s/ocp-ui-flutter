@@ -344,4 +344,38 @@ class TicketService {
       rethrow;
     }
   }
+
+  // Fetch ticket dengan status OPEN dan jenis dukungan REQUEST
+  Future<List<Map<String, dynamic>>> fetchOpenRequestTickets() async {
+    try {
+      final token = await AuthService.getToken();
+      final url = Uri.parse(ApiConfig.ticketOpenRequest);
+
+      final headers = <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      };
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+
+        return data.map<Map<String, dynamic>>((item) {
+          if (item is Map<String, dynamic>) {
+            return item;
+          }
+          return {};
+        }).toList();
+      } else {
+        throw Exception(
+          'Gagal memuat tiket open request: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
