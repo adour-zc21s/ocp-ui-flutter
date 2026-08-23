@@ -63,10 +63,11 @@ class _TicketOpenRequestPageState extends State<TicketOpenRequestPage> {
                 final ticket = tickets[index];
 
                 final String title =
-                    ticket['title']?.toString() ?? 'Tanpa Judul';
+                    ticket['judul']?.toString() ?? 'Tanpa Judul';
                 final String status = ticket['status']?.toString() ?? 'OPEN';
-                final String jenisDukungan =
-                    ticket['jenisDukungan']?.toString() ?? 'REQUEST';
+                final String noTiket =
+                    ticket['noTiket']?.toString() ?? 'REQUEST';
+                final String branch = ticket['branch']?.toString() ?? '-';
 
                 return Card(
                   elevation: 2,
@@ -88,7 +89,14 @@ class _TicketOpenRequestPageState extends State<TicketOpenRequestPage> {
                     ),
                     subtitle: Padding(
                       padding: const EdgeInsets.only(top: 6),
-                      child: Text('Jenis: $jenisDukungan'),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('No Ticket: $noTiket'),
+                          const SizedBox(height: 2),
+                          Text('Branch: $branch'),
+                        ],
+                      ),
                     ),
                     trailing: Container(
                       padding: const EdgeInsets.symmetric(
