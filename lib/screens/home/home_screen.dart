@@ -123,7 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              child: DashboardGrid(menus: dashboardMenus),
+              child: DashboardGrid(
+                menus: dashboardMenus, 
+                onRefresh: _fetchTicketCount,
+              ),
             ),
 
             const SizedBox(height: 24),

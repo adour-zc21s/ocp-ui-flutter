@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class DashboardGrid extends StatelessWidget {
   final List<Map<String, dynamic>> menus;
+  final VoidCallback? onRefresh;
 
-  const DashboardGrid({super.key, required this.menus});
+  const DashboardGrid({super.key, required this.menus, this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class DashboardGrid extends StatelessWidget {
         final menu = menus[index];
         return MenuItemTile(
           menu: menu,
+          onRefresh: onRefresh,
         ); // 👈 Dipisah lagi menjadi widget tile tersendiri
       },
     );
@@ -30,8 +32,9 @@ class DashboardGrid extends StatelessWidget {
 
 class MenuItemTile extends StatelessWidget {
   final Map<String, dynamic> menu;
+  final VoidCallback? onRefresh;
 
-  const MenuItemTile({super.key, required this.menu});
+  const MenuItemTile({super.key, required this.menu, this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,12 @@ class MenuItemTile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => menu['screen'] as Widget),
-          );
+          ).then((result) {
+            // 👈 Dipanggil saat pengguna kembali dari screen menu
+            if (onRefresh != null) {
+              onRefresh!();
+            }
+          });
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Menu ${menu['title']} belum tersedia')),
