@@ -22,7 +22,7 @@ class TicketItemTile extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
         ),
         subtitle: Text(
-          'ID: ${ticket.id}\nDibuat: ${ticket.formattedCreatedAt}',
+          'Subject: ${ticket.judul}\nDibuat: ${ticket.formattedCreatedAt}',
           style: const TextStyle(fontSize: 12),
         ),
         trailing: Container(
