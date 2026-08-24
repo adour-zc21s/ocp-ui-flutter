@@ -88,7 +88,7 @@ class _ItemScreenState extends State<ItemScreen> {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              fontSize: 15,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -98,7 +98,7 @@ class _ItemScreenState extends State<ItemScreen> {
                           Text(
                             '${(double.tryParse(item.price.toString()) ?? 0).toStringAsFixed(0)}K',
                             style: const TextStyle(
-                              fontSize: 14,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: Colors.green,
                             ),

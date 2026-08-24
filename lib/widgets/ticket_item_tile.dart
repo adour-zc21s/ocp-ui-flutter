@@ -18,11 +18,12 @@ class TicketItemTile extends StatelessWidget {
           child: Icon(Icons.confirmation_number, color: Colors.black54),
         ),
         title: Text(
-          ticket.judul,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          ticket.noTiket,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
         ),
         subtitle: Text(
           'ID: ${ticket.id}\nDibuat: ${ticket.formattedCreatedAt}',
+          style: const TextStyle(fontSize: 12),
         ),
         trailing: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

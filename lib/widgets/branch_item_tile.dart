@@ -25,10 +25,11 @@ class BranchItemTile extends StatelessWidget {
         ),
         title: Text(
           branch.name,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
         ),
         subtitle: Text(
           branch.namaPt,
+          style: const TextStyle(fontSize: 12),
         ),
       ),
     );

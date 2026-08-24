@@ -25,9 +25,11 @@ class DeviceItemTile extends StatelessWidget {
         ),
         title: Text(
           device.deviceName,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
         ),
-        subtitle: Text('User: ${device.user} | Branch: ${device.branchName}'),
+        subtitle: Text('User: ${device.user} | Branch: ${device.branchName}',
+        style: const TextStyle(fontSize: 12),
+        ),
       ),
     );
   }

@@ -25,7 +25,7 @@ class Ticket {
   factory Ticket.fromJson(Map<String, dynamic> json) {
     return Ticket(
       id: json['id']?.toString() ?? '-',
-      noTiket: json['noTiket'] ?? 'Tidak ada nomor tiket',
+      noTiket: json['noTiket']?.toString() ?? 'Tidak ada nomor tiket',
       judul: json['judul'] ?? json['subject'] ?? 'Tanpa Judul',
       status: json['status'] ?? 'OPEN',
       createdAt:
