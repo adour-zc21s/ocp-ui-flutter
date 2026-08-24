@@ -84,7 +84,7 @@ class _TicketOpenRequestPageState extends State<TicketOpenRequestPage> {
                       title,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 14,
                       ),
                     ),
                     subtitle: Padding(
