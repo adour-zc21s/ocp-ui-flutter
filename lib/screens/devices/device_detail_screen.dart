@@ -42,10 +42,11 @@ class DeviceDetailScreen extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('ID Device:'),
+                      const Text('ID Device:', style: TextStyle(fontSize: 12)),
                       Text(
                         device.id,
-                        style: const TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey, fontSize: 12,
+                        ),
                       ),
                     ],
                   ),
@@ -54,10 +55,11 @@ class DeviceDetailScreen extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('User:'),
+                      const Text('User:', style: TextStyle(fontSize: 12)),
                       Text(
                         device.user,
-                        style: const TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey, fontSize: 12,
+                        ),
                       ),
                     ],
                   ),
@@ -66,10 +68,11 @@ class DeviceDetailScreen extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Password:'),
+                      const Text('Password:', style: TextStyle(fontSize: 12)),
                       Text(
                         device.password,
-                        style: const TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey, fontSize: 12,
+                        ),
                       ),
                     ],
                   ),
@@ -78,12 +81,14 @@ class DeviceDetailScreen extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Description:'),
+                      const Text('Description:', style: TextStyle(fontSize: 12),
+                      ),
                       Expanded(
                         child: Text(
                           device.description,
                           textAlign: TextAlign.right,
-                          style: const TextStyle(color: Colors.grey),
+                          style: const TextStyle(color: Colors.grey, fontSize: 12,
+                          ),
                         ),
                       ),
                     ],

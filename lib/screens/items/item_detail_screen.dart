@@ -42,34 +42,10 @@ class ItemDetailScreen extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('ID Item:'),
+                      const Text('ID Item:', style: TextStyle(fontSize: 12)),
                       Text(
                         item.id,
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Item Name:'),
-                      Text(
-                        item.name,
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Price:'),
-                      Text(
-                        '${(double.tryParse(item.price.toString()) ?? 0).toStringAsFixed(0)}K',
-                        style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold,
+                        style: const TextStyle(color: Colors.grey, fontSize: 12,
                         ),
                       ),
                     ],
@@ -79,12 +55,40 @@ class ItemDetailScreen extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Description:'),
+                      const Text('Item Name:', style: TextStyle(fontSize: 12)),
+                      Text(
+                        item.name,
+                        style: const TextStyle(color: Colors.grey, fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Price:', style: TextStyle(fontSize: 12)),
+                      Text(
+                        '${(double.tryParse(item.price.toString()) ?? 0).toStringAsFixed(0)}K',
+                        style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 12
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Description:', style: TextStyle(fontSize: 12),
+                      ),
                       Expanded(
                         child: Text(
                           item.description,
                           textAlign: TextAlign.right,
-                          style: const TextStyle(color: Colors.grey),
+                          style: const TextStyle(color: Colors.grey, fontSize: 12,
+                          ),
                         ),
                       ),
                     ],

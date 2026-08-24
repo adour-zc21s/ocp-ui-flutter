@@ -118,6 +118,7 @@ class _ItemScreenState extends State<ItemScreen> {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 8),
                         ],
                       ),
                     ),
