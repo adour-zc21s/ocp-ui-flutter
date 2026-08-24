@@ -11,12 +11,14 @@ class LoginRequest {
 
 class LoginResponse {
   final String? token;
+  final String? firstName;
 
-  LoginResponse({this.token});
+  LoginResponse({this.token, this.firstName});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
       token: json['token'] ?? json['accessToken'] ?? json['data']?['token'],
+      firstName: json['first_name'], // 👈 Tangkap key 'first_name' dari backend
     );
   }
 }

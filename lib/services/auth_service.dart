@@ -22,14 +22,17 @@ class AuthService {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final Map<String, dynamic> body = jsonDecode(response.body);
-
+        final loginResponse = LoginResponse.fromJson(body);
         // 👈 COCOKKAN DENGAN KEY BACKEND: access_token
         final String? token = body['access_token'];
+        final String firstName =
+            body['first_name'] ?? loginResponse.firstName ?? 'Admin';
 
         if (token != null && token.isNotEmpty) {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('jwt_token', token);
           await prefs.setString('user_email', email);
+          await prefs.setString('first_name', firstName);
           // print('✅ SUCCESS: Token berhasil tersimpan -> $token');
         } else {
           // print('❌ ERROR: Key access_token tidak ditemukan di response!');
@@ -43,6 +46,12 @@ class AuthService {
       // print('Detail Error Login: $e');
       rethrow;
     }
+  }
+
+  // 🚀 Getter untuk mengambil first_name di HomeScreen
+  Future<String> getFirstName() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('first_name') ?? 'Admin';
   }
 
   static Future<String?> getToken() async {

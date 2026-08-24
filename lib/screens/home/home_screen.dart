@@ -1,8 +1,8 @@
-// lib/screens/home/home_screen.dart
 import 'package:flutter/material.dart';
-import '../../widgets/dashboard_grid.dart';
-import '../../widgets/menu_secondary.dart'; // 👈 Import MenuSecondary
+import '../../widgets/menu_secondary.dart';
 import '../../widgets/logout_button.dart';
+import '../../widgets/welcome_banner.dart';
+import '../../widgets/main_menu_grid.dart';
 import '../../services/ticket_service.dart';
 import '../ticket/ticket_screen.dart';
 import '../ticket/ticket_open_request_page.dart';
@@ -10,6 +10,7 @@ import '../devices/devices_screen.dart';
 import '../branch/branch_screen.dart';
 import '../monitoring/monitoring_screen.dart';
 import '../items/item_screen.dart';
+import '../../services/auth_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,12 +21,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TicketService _ticketService = TicketService();
+  final AuthService _authService = AuthService();
   late Future<int> _openTicketCountFuture;
+  late Future<String> _firstNameFuture;
 
   @override
   void initState() {
     super.initState();
     _fetchTicketCount();
+    _firstNameFuture = _authService.getFirstName();
   }
 
   void _fetchTicketCount() {
@@ -97,86 +101,29 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const WelcomeBanner(),
-            const SizedBox(height: 24),
-            const Text(
-              'Main Menu',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-              ),
+            // 🚀 BUNGKUS WELCOME BANNER
+            FutureBuilder<String>(
+              future: _firstNameFuture,
+              builder: (context, snapshot) {
+                final firstName = snapshot.data ?? 'Admin';
+                return WelcomeBanner(firstName: firstName);
+              },
             ),
-            const SizedBox(height: 12),
-
-            // Dashboard Grid
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(24.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: DashboardGrid(
-                menus: dashboardMenus, 
-                onRefresh: _fetchTicketCount,
-              ),
-            ),
-
             const SizedBox(height: 24),
-
-            // 🚀 MENU SECONDARY
+            MainMenuGrid(menus: dashboardMenus, onRefresh: _fetchTicketCount),
+            const SizedBox(height: 24),
             MenuSecondary(
               title: 'Open Request Tickets',
               subtitle: 'Laporan permintaan tiket belum selesai',
-              icon: Icons.assignment_outlined, // Icon Report
+              icon: Icons.assignment_outlined,
               iconColor: Colors.orange.shade800,
               iconBackgroundColor: Colors.orange.shade50,
               targetScreen: const TicketOpenRequestPage(),
               countFuture: _openTicketCountFuture,
             ),
+            // ...
           ],
         ),
-      ),
-    );
-  }
-}
-
-class WelcomeBanner extends StatelessWidget {
-  const WelcomeBanner({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Colors.green, Colors.white70]),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Halo, Admin',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            'Mau mengelola apa hari ini?',
-            style: TextStyle(color: Colors.white70, fontSize: 12),
-          ),
-        ],
       ),
     );
   }
