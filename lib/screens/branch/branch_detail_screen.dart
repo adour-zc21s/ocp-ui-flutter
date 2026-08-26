@@ -42,10 +42,10 @@ class BranchDetailScreen extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('ID Branch:'),
+                      const Text('ID Branch:', style: TextStyle(fontSize: 12)),
                       Text(
                         branch.id,
-                        style: const TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey, fontSize: 12),
                       )
                     ],
                   ),
@@ -54,10 +54,12 @@ class BranchDetailScreen extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('ISP 1:'),
+                      const Text('ISP 1:', style: TextStyle(fontSize: 12)),
                       Text(
                         '${branch.namaIsp1} | ${branch.noIsp1}',
-                        style: const TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey,
+                          fontSize: 12,
+                        ),
                       )
                     ],
                   ),
@@ -66,10 +68,12 @@ class BranchDetailScreen extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('ISP 2:'),
+                      const Text('ISP 2:', style: TextStyle(fontSize: 12)),
                       Text(
                         '${branch.namaIsp2} | ${branch.noIsp2}',
-                        style: const TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey,
+                          fontSize: 12,
+                        ),
                       )
                     ],
                   ),
@@ -78,12 +82,14 @@ class BranchDetailScreen extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Alamat:'),
+                      const Text('Alamat:', style: TextStyle(fontSize: 12)),
                       Expanded(
                         child: Text(
                           branch.address,
                           textAlign: TextAlign.right,
-                          style: const TextStyle(color: Colors.grey),
+                          style: const TextStyle(color: Colors.grey,
+                            fontSize: 12,
+                          ),
                         ),
                       )
                     ],
