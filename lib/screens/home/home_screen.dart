@@ -93,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     return Scaffold(
+      extendBodyBehindAppBar: true, // Agar background menembus AppBar
       appBar: AppBar(
         title: const Text(
           'RIEK',
@@ -102,34 +103,57 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         actions: const [LogoutButton()],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 🚀 BUNGKUS WELCOME BANNER
-            FutureBuilder<String>(
-              future: _firstNameFuture,
-              builder: (context, snapshot) {
-                final firstName = snapshot.data ?? 'Admin';
-                return WelcomeBanner(firstName: firstName);
-              },
+      body: Stack(
+        children: [
+          // 🖼️ LAYER BACKGROUND GAMBAR ASSET
+          Positioned.fill(
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    'homescreen_background.png',
+                  ), // Ganti sesuai lokasi & ekstensi file
+                  fit: BoxFit.cover, // Menutupi seluruh area layar
+                ),
+              ),
             ),
-            const SizedBox(height: 24),
-            MainMenuGrid(menus: dashboardMenus, onRefresh: _fetchTicketCount),
-            const SizedBox(height: 24),
-            MenuSecondary(
-              title: 'Open Request Tickets',
-              subtitle: 'Laporan permintaan tiket belum selesai',
-              icon: Icons.assignment_outlined,
-              iconColor: Colors.orange.shade800,
-              iconBackgroundColor: Colors.orange.shade50,
-              targetScreen: const TicketOpenRequestPage(),
-              countFuture: _openTicketCountFuture,
+          ),
+
+          // 📱 LAYER KONTEN UTAMA
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // 🚀 WELCOME BANNER
+                  FutureBuilder<String>(
+                    future: _firstNameFuture,
+                    builder: (context, snapshot) {
+                      final firstName = snapshot.data ?? 'Admin';
+                      return WelcomeBanner(firstName: firstName);
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  MainMenuGrid(
+                    menus: dashboardMenus,
+                    onRefresh: _fetchTicketCount,
+                  ),
+                  const SizedBox(height: 24),
+                  MenuSecondary(
+                    title: 'Open Request Tickets',
+                    subtitle: 'Laporan permintaan tiket belum selesai',
+                    icon: Icons.assignment_outlined,
+                    iconColor: Colors.orange.shade800,
+                    iconBackgroundColor: Colors.orange.shade50,
+                    targetScreen: const TicketOpenRequestPage(),
+                    countFuture: _openTicketCountFuture,
+                  ),
+                ],
+              ),
             ),
-            // ...
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

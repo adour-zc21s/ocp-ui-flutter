@@ -28,6 +28,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/login_background.png
+    - assets/homescreen_background.png
 
 flutter_launcher_icons:
   android: "launcher_icon"
