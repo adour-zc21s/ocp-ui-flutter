@@ -53,12 +53,22 @@ class EmailDetailScreen extends StatelessWidget {
                 ),
                 ListTile(
                   title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start, // Agar judul tetap di atas jika email berlipat baris
                     children: [
-                      const Text('Email Address:', style: TextStyle(fontSize: 12)),
-                      Text(
-                        email.email,
-                        style: const TextStyle(color: Colors.grey, fontSize: 12,
+                      const Text(
+                        'Email Address:',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                      const SizedBox(width: 8), // Jarak antara label dan email
+                      Expanded(
+                        child: Text(
+                          email.email,
+                          textAlign: TextAlign.end, // Meratakan teks email ke kanan
+                          softWrap: true, // Mengaktifkan bungkus teks otomatis
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ],
