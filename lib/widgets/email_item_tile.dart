@@ -19,7 +19,7 @@ class EmailItemTile extends StatelessWidget {
         leading: CircleAvatar(
           backgroundColor: Colors.grey.shade300,
           child: Icon(
-            Icons.devices,
+            Icons.contact_mail,
             color: Colors.black54,
           ),
         ),
@@ -27,7 +27,9 @@ class EmailItemTile extends StatelessWidget {
           email.perfectName,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
         ),
-        subtitle: Text('email: ${email.email} | Pass: ${email.password}',
+        // subtitle: Text('email: ${email.email} | Pass: ${email.password}',
+        subtitle: Text(
+          'email: ${email.email}',
         style: const TextStyle(fontSize: 12),
         ),
       ),

@@ -24,7 +24,7 @@ class EmailDetailScreen extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const Icon(
-                    Icons.devices,
+                    Icons.contact_mail,
                     size: 40,
                     color: Colors.grey,
                   ),

@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       {
         'title': 'Emails',
-        'icon': Icons.email,
+        'icon': Icons.contact_mail,
         'color': Colors.green.shade700,
         'screen': const EmailScreen(),
       },
