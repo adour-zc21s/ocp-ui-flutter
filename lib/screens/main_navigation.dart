@@ -61,7 +61,9 @@ class _MainNavigationState extends State<MainNavigation> {
                 icon: Icon(Icons.confirmation_number),
                 label: 'Ticket',
               ),
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home), 
+                label: 'Home'),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),
                 label: 'My Accounts',

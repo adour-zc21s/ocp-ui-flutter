@@ -11,7 +11,7 @@ class WelcomeBanner extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Colors.green, Colors.white70]),
+        gradient: const LinearGradient(colors: [Colors.green, Color.fromARGB(255, 166, 209, 169)]),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(

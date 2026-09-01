@@ -66,7 +66,11 @@ class _HomeScreenState extends State<HomeScreen> {
         'icon': Icons.person,
         'color': Colors.green.shade700,
       },
-      {'title': 'Emails', 'icon': Icons.email, 'color': Colors.green.shade700},
+      {
+        'title': 'Emails',
+        'icon': Icons.email,
+        'color': Colors.green.shade700,
+      },
       {
         'title': 'Notifications',
         'icon': Icons.notifications,
