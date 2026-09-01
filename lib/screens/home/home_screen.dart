@@ -5,6 +5,7 @@ import '../../widgets/welcome_banner.dart';
 import '../../widgets/main_menu_grid.dart';
 import '../../services/ticket_service.dart';
 import '../ticket/ticket_screen.dart';
+import '../email/emails_screen.dart';
 import '../ticket/ticket_open_request_page.dart';
 import '../devices/devices_screen.dart';
 import '../branch/branch_screen.dart';
@@ -70,6 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
         'title': 'Emails',
         'icon': Icons.email,
         'color': Colors.green.shade700,
+        'screen': const EmailScreen(),
       },
       {
         'title': 'Notifications',
