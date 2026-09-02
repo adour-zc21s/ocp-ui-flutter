@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   package_info_plus: ^10.1.0 # (Gunakan versi terbaru yang tersedia)
+  geolocator: ^13.0.1  # Meminta izin & mengambil koordinat GPS
+  geocoding: ^3.0.0   # Mengubah koordinat (lat, long) jadi nama lokasi/kota
 
   cupertino_icons: ^1.0.8
   http: ^1.2.0 # Package http di sini

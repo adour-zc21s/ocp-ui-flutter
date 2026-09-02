@@ -13,6 +13,7 @@ import '../branch/branch_screen.dart';
 import '../monitoring/monitoring_screen.dart';
 import '../items/item_screen.dart';
 import '../../services/auth_service.dart';
+import '../../services/location_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final LocationService _locationService = LocationService();
+  late Future<String> _currentLocationFuture;
   final TicketService _ticketService = TicketService();
   final AuthService _authService = AuthService();
   late Future<int> _openTicketCountFuture;
@@ -32,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _fetchTicketCount();
     _firstNameFuture = _authService.getFirstName();
+    _currentLocationFuture = _locationService.getCurrentCity();
   }
 
   void _fetchTicketCount() {
@@ -105,9 +109,47 @@ class _HomeScreenState extends State<HomeScreen> {
         extendBodyBehindAppBar: true, 
         extendBody: true, // 👈 1. PENTING: Memperluas body sampai paling bawah layar
         appBar: AppBar(
-          title: const Text(
-            'RIEK',
-            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'RIEK',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              // 📍 WIDGET LOKASI DI APP BAR
+              Row(
+                children: [
+                  const Icon(
+                    Icons.location_on,
+                    color: Colors.redAccent,
+                    size: 14,
+                  ),
+                  const SizedBox(width: 4),
+                  FutureBuilder<String>(
+                    future: _currentLocationFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Text(
+                          'Mencari lokasi...',
+                          style: TextStyle(fontSize: 11, color: Colors.grey),
+                        );
+                      }
+                      return Text(
+                        snapshot.data ?? 'Lokasi tidak diketahui',
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
