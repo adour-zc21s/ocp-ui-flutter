@@ -65,213 +65,216 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     const primaryNeon = Color.fromARGB(255, 133, 230, 137);
-    // const secondaryGlow = Colors.grey;
-    // const seaBackground = Color.fromRGBO(0, 127, 159, 1);
 
-    return Container(
-      // 1. WALLPAPER BACKGROUND DARI ASSETS
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(
-            'assets/login_background.png',
-          ), // 👈 Gambar dari assets
-          fit: BoxFit.cover, // Memenuhi seluruh layar tanpa memukul rasio
-          colorFilter: ColorFilter.mode(
-            Colors.black12,
-            BlendMode.darken,
-          ), // Memberikan efek gelap pada wallpaper
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent, // Scaffold transparan
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              children: [
-                // 2. FORM LOGIN (CARD HIGH-TECH GLASSMORPHISM)
-                Expanded(
-                  child: Center(
-                    child: SingleChildScrollView(
-                      child: Container(
-                        padding: const EdgeInsets.all(28.0),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.transparent,
-                              blurRadius: 25,
-                              spreadRadius: 2,
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // Header Icon dengan Glow Effect
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.black54,
-                                border: Border.all(
-                                  color: Colors.black12,
-                                ),
-                              ),
-                              child: const Icon(
-                                Icons.verified_user_outlined,
-                                size: 52,
-                                color: Colors.green,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            const Text(
-                              'RIEK',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.black54,
-                                letterSpacing: 2.0,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              'Enter your credentials to access system',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black26.withValues(alpha: 0.6),
-                              ),
-                            ),
-                            const SizedBox(height: 32),
+    return Scaffold(
+      backgroundColor: Colors
+          .black, // Warna dasar solid agar layar lama tidak tembus saat logout
+      body: Stack(
+        children: [
+          // 1. LAYER BACKGROUND IMAGE (FULLSCREEN)
+          Positioned.fill(
+            child: Image.asset(
+              'assets/login_background.png',
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.black,
+                ); // Fallback jika gambar gagal dimuat
+              },
+            ),
+          ),
 
-                            // Input Email / Username
-                            TextField(
-                              controller: _emailController,
-                              style: const TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                labelText: 'Email / Username',
-                                labelStyle: TextStyle(
-                                  color: Colors.white.withValues(alpha: 0.7),
+          // 2. LAYER FORM LOGIN
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: const EdgeInsets.all(28.0),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // Header Icon
+                              Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54,
+                                  border: Border.all(color: Colors.black12),
                                 ),
-                                prefixIcon: const Icon(
-                                  Icons.email_outlined,
-                                  color:Colors.white,
+                                child: const Icon(
+                                  Icons.verified_user_outlined,
+                                  size: 52,
+                                  color: Colors.green,
                                 ),
-                                filled: true,
-                                fillColor: Colors.black.withValues(alpha: 0.3),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(
-                                    color: Colors.white.withValues(alpha: 0.1),
+                              ),
+                              const SizedBox(height: 16),
+                              const Text(
+                                'RIEK',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors
+                                      .white, // Diubah ke white agar kontras
+                                  letterSpacing: 2.0,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                'Enter your credentials to access system',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                              const SizedBox(height: 32),
+
+                              // Input Email / Username
+                              TextField(
+                                controller: _emailController,
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  labelText: 'Email / Username',
+                                  labelStyle: TextStyle(
+                                    color: Colors.white.withValues(alpha: 0.7),
                                   ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(
-                                    color: primaryNeon,
-                                    width: 1.5,
+                                  prefixIcon: const Icon(
+                                    Icons.email_outlined,
+                                    color: Colors.white,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.black.withValues(
+                                    alpha: 0.5,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                      color: Colors.white.withValues(
+                                        alpha: 0.2,
+                                      ),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(
+                                      color: primaryNeon,
+                                      width: 1.5,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 20),
+                              const SizedBox(height: 20),
 
-                            // Input Password
-                            TextField(
-                              controller: _passwordController,
-                              obscureText: true,
-                              style: const TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                labelText: 'Password',
-                                labelStyle: TextStyle(
-                                  color: Colors.white.withValues(alpha: 0.7),
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.lock_outline,
-                                  color: Colors.white,
-                                ),
-                                filled: true,
-                                fillColor: Colors.black.withValues(alpha: 0.3),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(
-                                    color: Colors.white.withValues(alpha: 0.1),
+                              // Input Password
+                              TextField(
+                                controller: _passwordController,
+                                obscureText: true,
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  labelStyle: TextStyle(
+                                    color: Colors.white.withValues(alpha: 0.7),
                                   ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(
-                                    color: primaryNeon,
-                                    width: 1.5,
+                                  prefixIcon: const Icon(
+                                    Icons.lock_outline,
+                                    color: Colors.white,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.black.withValues(
+                                    alpha: 0.5,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                      color: Colors.white.withValues(
+                                        alpha: 0.2,
+                                      ),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(
+                                      color: primaryNeon,
+                                      width: 1.5,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 28),
+                              const SizedBox(height: 28),
 
-                            // Tombol Login
-                            Container(
-                              width: double.infinity,
-                              height: 52,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Colors.black45,
-                                    Colors.black38,
+                              // Tombol Login
+                              Container(
+                                width: double.infinity,
+                                height: 52,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  gradient: const LinearGradient(
+                                    colors: [Colors.black87, Colors.black54],
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withValues(
+                                        alpha: 0.3,
+                                      ),
+                                      blurRadius: 12,
+                                      offset: const Offset(0, 4),
+                                    ),
                                   ],
                                 ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color.fromARGB(255, 29, 32, 31).withValues(alpha: 0.3),
-                                    blurRadius: 12,
-                                    offset: const Offset(0, 4),
+                                child: ElevatedButton(
+                                  onPressed: _isLoading ? null : _handleLogin,
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
                                   ),
-                                ],
-                              ),
-                              child: ElevatedButton(
-                                onPressed: _isLoading ? null : _handleLogin,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
+                                  child: _isLoading
+                                      ? const SizedBox(
+                                          width: 24,
+                                          height: 24,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                            strokeWidth: 2.5,
+                                          ),
+                                        )
+                                      : const Text(
+                                          'LOG IN',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.5,
+                                          ),
+                                        ),
                                 ),
-                                child: _isLoading
-                                    ? const SizedBox(
-                                        width: 24,
-                                        height: 24,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                          strokeWidth: 2.5,
-                                        ),
-                                      )
-                                    : const Text(
-                                        'LOG IN',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 1.5,
-                                        ),
-                                      ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                // 3. FOOTER
-                Theme(data: ThemeData.dark(), child: const AppVersionFooter()),
-              ],
+                  // Footer
+                  Theme(
+                    data: ThemeData.dark(),
+                    child: const AppVersionFooter(),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

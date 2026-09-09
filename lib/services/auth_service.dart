@@ -66,4 +66,11 @@ class AuthService {
     // print('Membaca commented by: $prefs');
     return prefs.getString('user_email'); // Sesuaikan key simpanan email Anda
   }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('jwt_token');
+    await prefs.remove('user_email');
+    await prefs.remove('first_name');
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/login_screen.dart';
+import '../services/auth_service.dart';
 
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key});
@@ -7,26 +8,34 @@ class LogoutButton extends StatelessWidget {
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         title: const Text('Konfirmasi Log Out'),
         content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () =>
+                Navigator.of(dialogContext, rootNavigator: true).pop(),
             child: const Text('Batal'),
           ),
           ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context); // Tutup dialog konfirmasi
+            onPressed: () async {
+              final navigator = Navigator.of(context, rootNavigator: true);
+              Navigator.of(dialogContext, rootNavigator: true).pop();
 
-              // Hapus riwayat navigasi dan kembali ke login
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-                (route) => false,
-              );
+              await AuthService().logout();
+
+              if (context.mounted) {
+                navigator.pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (routeContext) => const LoginScreen(),
+                  ),
+                  (route) => false,
+                );
+              }
             },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.grey.shade300),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.grey.shade300,
+            ),
             child: const Text('Log Out', style: TextStyle(color: Colors.red)),
           ),
         ],
