@@ -3,8 +3,8 @@ class ApiConfig {
   // - Chrome / Web / Desktop : http://localhost:8081
   // - Emulator Android        : http://10.0.2.2:8081
   // - HP Fisik               : http://192.168.x.x:8081 (IP Komputer)
-  static const String baseUrl = 'http://202.51.103.154:3004/api/v1';
-  // static const String baseUrl = 'http://localhost:8081/api/v1';
+  // static const String baseUrl = 'http://202.51.103.154:3004/api/v1';
+  static const String baseUrl = 'http://localhost:8081/api/v1';
 
   // Endpoint Auth
   static const String login = '$baseUrl/auth/authenticate';
@@ -17,9 +17,11 @@ class ApiConfig {
   static const String ticketBranches = '$baseUrl/tickets/branches';
   static const String ticketSupport = '$baseUrl/tickets/supporttype';
   static const String ticketOpenRequest = '$baseUrl/tickets/open-requests';
-  // Endpoint
-  static const String devices = '$baseUrl/dev';
+  // Endpoint Email
   static const String emails = '$baseUrl/emails';
+  static const String emailSearch = '$baseUrl/emails/search';
+  // Endpoint Branches
+  static const String devices = '$baseUrl/dev';
   static const String brances = '$baseUrl/branches';
   static const String cariBranches = '$baseUrl/branches/search';
   static const String items = '$baseUrl/items';
