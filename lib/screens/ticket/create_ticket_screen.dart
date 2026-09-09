@@ -103,7 +103,7 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
                   }
 
                   return DropdownButtonFormField<String>(
-                    value: _selectedSupportType,
+                    initialValue: _selectedSupportType,
                     decoration: const InputDecoration(
                       labelText: 'Support Type',
                       border: OutlineInputBorder(),
@@ -145,7 +145,7 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
                   final accounts = snapshot.data!;
 
                   return DropdownButtonFormField<String>(
-                    value:
+                    initialValue:
                         _selectedEmailNotification, // Variabel ini tetap menampung String (email)
                     decoration: const InputDecoration(
                       labelText: 'Email Notification',
@@ -190,7 +190,7 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
                   }
 
                   return DropdownButtonFormField<String>(
-                    value: _selectedDepartment,
+                    initialValue: _selectedDepartment,
                     decoration: const InputDecoration(
                       labelText: 'Department',
                       border: OutlineInputBorder(),
@@ -227,7 +227,7 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
                   }
 
                   return DropdownButtonFormField<String>(
-                    value: _selectedBranch,
+                    initialValue: _selectedBranch,
                     decoration: const InputDecoration(
                       labelText: 'Branch',
                       border: OutlineInputBorder(),

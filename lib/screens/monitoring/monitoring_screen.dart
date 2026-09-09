@@ -64,7 +64,7 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
   // Cek status ke semua branch
   Future<void> _checkAllMonitoringStatuses() async {
     for (var monitor in _monitoring) {
-      final id = monitor.id ?? 0;
+      final id = monitor.id;
       if (id != 0) {
         try {
           final status = await _monitoringService.checkMonitoringStatus(id);
@@ -172,7 +172,7 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
 
                   // Daftar Card Monitoring Setiap Application
                   ..._monitoring.map((monitor) {
-                    final id = monitor.id ?? 0;
+                    final id = monitor.id;
                     final status = _statuses[id];
 
                     return Padding(

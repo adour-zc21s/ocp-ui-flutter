@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../services/ticket_service.dart'; // Sesuaikan path service Anda
 
 class TicketOpenRequestPage extends StatefulWidget {
-  const TicketOpenRequestPage({Key? key}) : super(key: key);
+  const TicketOpenRequestPage({super.key});
 
   @override
   State<TicketOpenRequestPage> createState() => _TicketOpenRequestPageState();

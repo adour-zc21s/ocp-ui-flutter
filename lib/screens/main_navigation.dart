@@ -34,7 +34,7 @@ class _MainNavigationState extends State<MainNavigation> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1), // Bayangan ke arah atas
+              color: Colors.black.withValues(alpha: 0.1), // Bayangan ke arah atas
               blurRadius: 10,
               offset: const Offset(0, -3),
             ),

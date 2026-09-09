@@ -67,7 +67,6 @@ class _LoginScreenState extends State<LoginScreen> {
     const primaryNeon = Color.fromARGB(255, 133, 230, 137);
     // const secondaryGlow = Colors.grey;
     // const seaBackground = Color.fromRGBO(0, 127, 159, 1);
-    const cardBackground = Color.fromRGBO(0, 66, 66, 1);
 
     return Container(
       // 1. WALLPAPER BACKGROUND DARI ASSETS
@@ -141,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Enter your credentials to access system',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.black26.withOpacity(0.6),
+                                color: Colors.black26.withValues(alpha: 0.6),
                               ),
                             ),
                             const SizedBox(height: 32),
@@ -153,18 +152,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: InputDecoration(
                                 labelText: 'Email / Username',
                                 labelStyle: TextStyle(
-                                  color: Colors.white.withOpacity(0.7),
+                                  color: Colors.white.withValues(alpha: 0.7),
                                 ),
                                 prefixIcon: const Icon(
                                   Icons.email_outlined,
                                   color:Colors.white,
                                 ),
                                 filled: true,
-                                fillColor: Colors.black.withOpacity(0.3),
+                                fillColor: Colors.black.withValues(alpha: 0.3),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: BorderSide(
-                                    color: Colors.white.withOpacity(0.1),
+                                    color: Colors.white.withValues(alpha: 0.1),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -186,18 +185,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: InputDecoration(
                                 labelText: 'Password',
                                 labelStyle: TextStyle(
-                                  color: Colors.white.withOpacity(0.7),
+                                  color: Colors.white.withValues(alpha: 0.7),
                                 ),
                                 prefixIcon: const Icon(
                                   Icons.lock_outline,
                                   color: Colors.white,
                                 ),
                                 filled: true,
-                                fillColor: Colors.black.withOpacity(0.3),
+                                fillColor: Colors.black.withValues(alpha: 0.3),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: BorderSide(
-                                    color: Colors.white.withOpacity(0.1),
+                                    color: Colors.white.withValues(alpha: 0.1),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -225,7 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: const Color.fromARGB(255, 29, 32, 31).withOpacity(0.3),
+                                    color: const Color.fromARGB(255, 29, 32, 31).withValues(alpha: 0.3),
                                     blurRadius: 12,
                                     offset: const Offset(0, 4),
                                   ),

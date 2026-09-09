@@ -35,7 +35,7 @@ class BranchDetailScreen extends StatelessWidget {
                       fontSize: 18,
                     ),
                   ),
-                  subtitle: Text('${branch.namaPt}'),
+                  subtitle: Text(branch.namaPt),
                 ),
                 const Divider(),
                 ListTile(
