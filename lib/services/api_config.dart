@@ -20,8 +20,10 @@ class ApiConfig {
   // Endpoint Email
   static const String emails = '$baseUrl/emails';
   static const String emailSearch = '$baseUrl/emails/search';
-  // Endpoint Branches
+  // Endpoint Device
   static const String devices = '$baseUrl/dev';
+  static const String deviceSearch = '$baseUrl/dev/search';
+  // Endpoint Branch
   static const String brances = '$baseUrl/branches';
   static const String cariBranches = '$baseUrl/branches/search';
   static const String items = '$baseUrl/items';

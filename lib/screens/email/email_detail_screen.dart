@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/email_model.dart';
+import 'package:flutter/services.dart'; // Diperlukan untuk Clipboard
 
 class EmailDetailScreen extends StatelessWidget {
   final Email email;
@@ -79,14 +80,33 @@ class EmailDetailScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Password:', style: TextStyle(fontSize: 12)),
-                      Text(
-                        email.password,
-                        style: const TextStyle(color: Colors.grey, fontSize: 12,
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            email.password,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.copy, size: 16),
+                            onPressed: () {
+                              Clipboard.setData(
+                                ClipboardData(text: email.password),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Password berhasil disalin!'),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ),
+                )
               ],
             ),
           ),

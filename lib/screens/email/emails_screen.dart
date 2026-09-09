@@ -24,7 +24,7 @@ class _EmailScreenState extends State<EmailScreen> {
     _loadEmails();
   }
 
-@override
+  @override
   void dispose() {
     _searchController.dispose();
     _debounce?.cancel();
