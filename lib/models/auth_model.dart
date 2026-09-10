@@ -1,11 +1,11 @@
 class LoginRequest {
-  final String email; // atau username, sesuaikan dengan backend Anda
+  final String identifier;
   final String password;
 
-  LoginRequest({required this.email, required this.password});
+  LoginRequest({required this.identifier, required this.password});
 
   Map<String, dynamic> toJson() {
-    return {'email': email, 'password': password};
+    return {'identifier': identifier, 'password': password};
   }
 }
 

@@ -24,13 +24,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _handleLogin() async {
-    final email = _emailController.text.trim();
+    final identifier = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
-    if (email.isEmpty || password.isEmpty) {
+    if (identifier.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Email ama password kaga boleh kosong'),
+          content: Text('Identifier dan password tidak boleh kosong'),
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await _authService.login(email, password);
+      await _authService.login(identifier, password);
 
       if (mounted) {
         Navigator.pushReplacement(
@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               const SizedBox(height: 16),
                               const Text(
-                                'Sion App',
+                                'SION',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w800,
@@ -137,17 +137,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               const SizedBox(height: 32),
 
-                              // Input Email / Username
+                              // Input Identifier
                               TextField(
                                 controller: _emailController,
                                 style: const TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
-                                  labelText: 'Email / Username',
+                                  labelText: 'username / email',
                                   labelStyle: TextStyle(
                                     color: Colors.white.withValues(alpha: 0.7),
                                   ),
                                   prefixIcon: const Icon(
-                                    Icons.email_outlined,
+                                    Icons.person_outline,
                                     color: Colors.white,
                                   ),
                                   filled: true,

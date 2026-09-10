@@ -5,14 +5,14 @@ import '../models/auth_model.dart';
 import 'api_config.dart';
 
 class AuthService {
-  Future<LoginResponse> login(String email, String password) async {
+  Future<LoginResponse> login(String identifier, String password) async {
     try {
       final response = await http
           .post(
             Uri.parse(ApiConfig.login),
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode(
-              LoginRequest(email: email, password: password).toJson(),
+              LoginRequest(identifier: identifier, password: password).toJson(),
             ),
           )
           .timeout(const Duration(seconds: 10));
@@ -31,7 +31,7 @@ class AuthService {
         if (token != null && token.isNotEmpty) {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('jwt_token', token);
-          await prefs.setString('user_email', email);
+          await prefs.setString('user_email', identifier);
           await prefs.setString('first_name', firstName);
           // print('✅ SUCCESS: Token berhasil tersimpan -> $token');
         } else {
