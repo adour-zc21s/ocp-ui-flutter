@@ -83,7 +83,7 @@ class Order {
         : null;
 
     final total = json['totalAmount'] ?? json['amount'] ?? json['total'];
-    final status = json['status']?.toString() ?? 'Pending';
+    final status = json['status']?.toString() ?? 'diproses';
     final description = json['description']?.toString() ?? 'Tidak ada keterangan';
     return Order(
       id: json['id']?.toString() ?? json['orderId']?.toString() ?? 'ORD-000',

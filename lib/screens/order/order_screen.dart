@@ -63,7 +63,7 @@ class _OrderScreenState extends State<OrderScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final result = await Navigator.push(
             context,
@@ -74,8 +74,8 @@ class _OrderScreenState extends State<OrderScreen> {
             _loadOrders();
           }
         },
-        icon: const Icon(Icons.add),
-        label: const Text('Tambah'),
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
       body: Column(
         children: [

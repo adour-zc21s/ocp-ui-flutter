@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../models/orders_model.dart';
 import '../../models/item_model.dart';
 import '../../services/order_service.dart';
@@ -199,16 +200,47 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                 ),
                 const SizedBox(width: 12),
                 SizedBox(
-                  width: 110,
+                  width: 120,
                   child: TextFormField(
                     controller: _quantityController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
                       labelText: 'Qty',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 8,
+                      ),
+                      suffixIcon: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              int currentValue =
+                                  int.tryParse(_quantityController.text) ?? 0;
+                              _quantityController.text = (currentValue + 1)
+                                  .toString();
+                            },
+                            child: const Icon(Icons.arrow_drop_up, size: 18),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              int currentValue =
+                                  int.tryParse(_quantityController.text) ?? 0;
+                              if (currentValue > 0) {
+                                // Mencegah nilai minus
+                                _quantityController.text = (currentValue - 1)
+                                    .toString();
+                              }
+                            },
+                            child: const Icon(Icons.arrow_drop_down, size: 18),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                )
               ],
             ),
             const SizedBox(height: 12),
