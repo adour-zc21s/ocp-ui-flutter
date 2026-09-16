@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.black54,
+                                  color: Colors.grey.shade100,
                                   border: Border.all(color: Colors.black12),
                                 ),
                                 child: const Icon(
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'Enter your credentials to access system',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.white70,
+                                  color: Colors.grey.shade800,
                                 ),
                               ),
                               const SizedBox(height: 32),
@@ -217,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
                                   gradient: const LinearGradient(
-                                    colors: [Colors.black87, Colors.black54],
+                                    colors: [Colors.blueGrey, Colors.grey],
                                   ),
                                   boxShadow: [
                                     BoxShadow(

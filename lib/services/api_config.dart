@@ -3,8 +3,8 @@ class ApiConfig {
   // - Chrome / Web / Desktop : http://localhost:8081
   // - Emulator Android        : http://10.0.2.2:8081
   // - HP Fisik               : http://192.168.x.x:8081 (IP Komputer)
-  static const String baseUrl = 'http://202.51.103.154:3004/api/v1';
-  // static const String baseUrl = 'http://localhost:8081/api/v1';
+  // static const String baseUrl = 'http://202.51.103.154:3004/api/v1';
+  static const String baseUrl = 'http://localhost:8081/api/v1';
 
   // Endpoint Auth
   static const String login = '$baseUrl/auth/authenticate';
@@ -28,6 +28,10 @@ class ApiConfig {
   static const String cariBranches = '$baseUrl/branches/search';
   static const String items = '$baseUrl/items';
   static const String monitoring = '$baseUrl/monitoring';
+  // Endpoint Orders
+  static const String order = '$baseUrl/order';
+  static const String orders = '$baseUrl/order/orders';
+  static const String orderItem = '$baseUrl/order/items';
   // Method pembantu untuk URL spesifik ID (contoh: /tickets/123)
   static String ticketDetail(String id) => '$tickets/$id';
   static String ticketClose(String id) => '$tickets/$id/close';

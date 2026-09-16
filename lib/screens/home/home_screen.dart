@@ -14,6 +14,7 @@ import '../monitoring/monitoring_screen.dart';
 import '../items/item_screen.dart';
 import '../../services/auth_service.dart';
 import '../../services/location_service.dart';
+import '../order/order_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -68,20 +69,10 @@ class _HomeScreenState extends State<HomeScreen> {
         'screen': const DeviceScreen(),
       },
       {
-        'title': 'Accounts',
-        'icon': Icons.person,
-        'color': Colors.green.shade700,
-      },
-      {
         'title': 'Emails',
         'icon': Icons.contact_mail,
         'color': Colors.green.shade700,
         'screen': const EmailScreen(),
-      },
-      {
-        'title': 'Notifications',
-        'icon': Icons.notifications,
-        'color': Colors.green.shade700,
       },
       {
         'title': 'Branches',
@@ -95,19 +86,32 @@ class _HomeScreenState extends State<HomeScreen> {
         'color': Colors.green.shade700,
         'screen': const ItemScreen(),
       },
+      {
+        'title': 'Accounts',
+        'icon': Icons.person,
+        'color': Colors.green.shade700,
+      },
+      {
+        'title': 'Orders',
+        'icon': Icons.shopping_cart,
+        'color': Colors.green.shade700,
+        'screen': const OrderScreen(),
+      },
     ];
 
     // Mengatur agar sistem navigasi Android menjadi transparan
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent, // 👈 Membikin bar bawah transparan
+        systemNavigationBarColor:
+            Colors.transparent, // 👈 Membikin bar bawah transparan
         systemNavigationBarDividerColor: Colors.transparent,
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        extendBodyBehindAppBar: true, 
-        extendBody: true, // 👈 1. PENTING: Memperluas body sampai paling bawah layar
+        extendBodyBehindAppBar: true,
+        extendBody:
+            true, // 👈 1. PENTING: Memperluas body sampai paling bawah layar
         appBar: AppBar(
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,7 +159,8 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           actions: const [LogoutButton()],
         ),
-        body: SizedBox.expand( // 👈 2. Memaksa Stack memenuhi 100% tinggi dan lebar layar HP
+        body: SizedBox.expand(
+          // 👈 2. Memaksa Stack memenuhi 100% tinggi dan lebar layar HP
           child: Stack(
             children: [
               // 🖼️ LAYER BACKGROUND FULLSCREEN
@@ -170,7 +175,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Center(
                         child: Text(
                           'Gagal memuat latar: $error',
-                          style: const TextStyle(color: Colors.red, fontSize: 12),
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     );
@@ -181,13 +189,15 @@ class _HomeScreenState extends State<HomeScreen> {
               // 📱 LAYER KONTEN UTAMA
               Positioned.fill(
                 child: SafeArea(
-                  bottom: false, // 👈 3. PENTING: Mematikan pembatasan aman di bagian bawah
+                  bottom:
+                      false, // 👈 3. PENTING: Mematikan pembatasan aman di bagian bawah
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.only(
                       left: 16.0,
                       right: 16.0,
                       top: 16.0,
-                      bottom: 32.0, // Beri sedikit jarak padding bawah agar konten tidak tertutup
+                      bottom:
+                          32.0, // Beri sedikit jarak padding bawah agar konten tidak tertutup
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
