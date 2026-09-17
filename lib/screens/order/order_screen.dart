@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../models/orders_model.dart';
 import '../../services/order_service.dart';
 import 'add_order_screen.dart';
@@ -15,6 +16,7 @@ class _OrderScreenState extends State<OrderScreen> {
   final TextEditingController _searchController = TextEditingController();
   final OrderService _orderService = OrderService();
   late Future<List<Order>> _futureOrders;
+  late Future<double> _futureRevenue;
 
   @override
   void initState() {
@@ -25,6 +27,7 @@ class _OrderScreenState extends State<OrderScreen> {
   void _loadOrders() {
     setState(() {
       _futureOrders = _orderService.fetchOrders();
+      _futureRevenue = _orderService.fetchOrderRevenue();
     });
   }
 
@@ -94,23 +97,50 @@ class _OrderScreenState extends State<OrderScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'List Orders',
-                      style: TextStyle(color: Colors.white70, fontSize: 12),
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      'Revenue : Rp 0',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'List Orders',
+                        style: TextStyle(color: Colors.white70, fontSize: 12),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 6),
+                      FutureBuilder<double>(
+                        future: _futureRevenue,
+                        builder: (context, snapshot) {
+                          final currency = NumberFormat.currency(
+                            locale: 'id_ID',
+                            symbol: 'Rp ',
+                            decimalDigits: 0,
+                          );
+
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Text(
+                              'Revenue : Rp 0',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                              ),
+                            );
+                          }
+
+                          final revenue = snapshot.data ?? 0.0;
+
+                          return Text(
+                            'Revenue : ${currency.format(revenue)}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),

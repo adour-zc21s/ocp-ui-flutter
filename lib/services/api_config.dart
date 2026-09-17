@@ -32,6 +32,7 @@ class ApiConfig {
   static const String order = '$baseUrl/order';
   static const String orders = '$baseUrl/order/orders';
   static const String orderItem = '$baseUrl/order/items';
+  static const String orderRevenue = '$baseUrl/order/revenue';
   // Method pembantu untuk URL spesifik ID (contoh: /tickets/123)
   static String ticketDetail(String id) => '$tickets/$id';
   static String ticketClose(String id) => '$tickets/$id/close';

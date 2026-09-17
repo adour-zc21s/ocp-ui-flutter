@@ -6,6 +6,41 @@ import 'api_config.dart';
 import 'auth_service.dart';
 
 class OrderService {
+  static double? _parseRevenueNumber(dynamic value) {
+    if (value == null) return null;
+
+    if (value is num) {
+      return value.toDouble();
+    }
+
+    if (value is String) {
+      final parsed = double.tryParse(value.replaceAll(',', ''));
+      if (parsed != null) return parsed;
+    }
+
+    return null;
+  }
+
+  static double parseRevenue(dynamic body) {
+    if (body is! Map) return 0.0;
+
+    final candidates = [
+      body['totalAmount'],
+      body['data'] is Map ? body['data']['totalAmount'] : null,
+      body['content'] is Map ? body['content']['totalAmount'] : null,
+      body['result'] is Map ? body['result']['totalAmount'] : null,
+    ];
+
+    for (final candidate in candidates) {
+      final parsed = _parseRevenueNumber(candidate);
+      if (parsed != null) {
+        return parsed;
+      }
+    }
+
+    return 0.0;
+  }
+
   Future<List<Item>> fetchOrderItems() async {
     final token = await AuthService.getToken();
     final url = Uri.parse(ApiConfig.orderItem);
@@ -97,6 +132,30 @@ class OrderService {
         throw Exception(
           'Gagal membuat order (${response.statusCode}): ${response.body}',
         );
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // Method untuk mendapatkan revenue order
+  Future<double> fetchOrderRevenue() async {
+    try {
+      final token = await AuthService.getToken();
+      final url = Uri.parse(ApiConfig.orderRevenue);
+
+      final headers = <String, String>{'Content-Type': 'application/json'};
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      final response = await http.get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        final dynamic body = jsonDecode(response.body);
+        return parseRevenue(body);
+      } else {
+        throw Exception('Gagal memuat revenue order: ${response.statusCode}');
       }
     } catch (e) {
       rethrow;
