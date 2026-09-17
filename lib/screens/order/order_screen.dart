@@ -43,8 +43,6 @@ class _OrderScreenState extends State<OrderScreen> {
         return Colors.orange.shade700;
       case 'diproses':
         return Colors.blue.shade700;
-      case 'dikirim':
-        return Colors.purple.shade700;
       case 'selesai':
         return Colors.green.shade700;
       default:

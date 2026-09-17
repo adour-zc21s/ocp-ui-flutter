@@ -200,7 +200,6 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                 items: const [
                   DropdownMenuItem(value: 'pending', child: Text('Pending')),
                   DropdownMenuItem(value: 'diproses', child: Text('Diproses')),
-                  DropdownMenuItem(value: 'dikirim', child: Text('Dikirim')),
                   DropdownMenuItem(value: 'selesai', child: Text('Selesai')),
                 ],
                 onChanged: (value) {
