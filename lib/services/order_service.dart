@@ -138,6 +138,47 @@ class OrderService {
     }
   }
 
+  Future<void> updateOrder({
+    required String id,
+    required String customerName,
+    required String description,
+    required String status,
+    required List<OrderItemRequest> orderDetails,
+  }) async {
+    try {
+      final token = await AuthService.getToken();
+      final url = Uri.parse(ApiConfig.orderDetail(id));
+
+      final headers = <String, String>{'Content-Type': 'application/json'};
+
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      final request = UpdateOrderRequest(
+        id: id,
+        customerName: customerName,
+        description: description,
+        status: status,
+        orderDetails: orderDetails,
+      );
+
+      final response = await http.put(
+        url,
+        headers: headers,
+        body: jsonEncode(request.toJson()),
+      );
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw Exception(
+          'Gagal memperbarui order (${response.statusCode}): ${response.body}',
+        );
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   // Method untuk mendapatkan revenue order
   Future<double> fetchOrderRevenue() async {
     try {

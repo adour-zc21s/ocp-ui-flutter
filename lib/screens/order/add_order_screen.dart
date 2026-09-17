@@ -5,7 +5,9 @@ import '../../models/item_model.dart';
 import '../../services/order_service.dart';
 
 class AddOrderScreen extends StatefulWidget {
-  const AddOrderScreen({super.key});
+  final Order? order;
+
+  const AddOrderScreen({super.key, this.order});
 
   @override
   State<AddOrderScreen> createState() => _AddOrderScreenState();
@@ -20,12 +22,29 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
   late Future<List<Item>> _futureItems;
   Item? _selectedItem;
   bool _isLoading = false;
+  String _selectedStatus = 'diproses';
 
   final List<OrderItemRequest> _items = [];
 
   @override
   void initState() {
     super.initState();
+    if (widget.order != null) {
+      _customerNameController.text = widget.order!.customerName;
+      _descriptionController.text = widget.order!.description;
+      _selectedStatus = widget.order!.status.isNotEmpty
+          ? widget.order!.status
+          : 'diproses';
+      _items.addAll(
+        widget.order!.orderDetails.map(
+          (detail) => OrderItemRequest(
+            itemId: detail.itemId,
+            quantity: detail.quantity,
+            priceAtPurchase: detail.price,
+          ),
+        ),
+      );
+    }
     _futureItems = _orderService.fetchOrderItems();
   }
 
@@ -51,7 +70,13 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
     }
 
     setState(() {
-      _items.add(OrderItemRequest(itemId: itemId, quantity: quantity));
+      _items.add(
+        OrderItemRequest(
+          itemId: itemId,
+          quantity: quantity,
+          priceAtPurchase: selectedItem.price,
+        ),
+      );
       _selectedItem = null;
       _quantityController.text = '1';
     });
@@ -70,23 +95,48 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await _orderService.createOrder(
-        customerName: _customerNameController.text.trim(),
-        description: _descriptionController.text.trim(),
-        orderDetails: _items,
-      );
+      if (widget.order != null) {
+        await _orderService.updateOrder(
+          id: widget.order!.id,
+          customerName: _customerNameController.text.trim(),
+          description: _descriptionController.text.trim(),
+          status: _selectedStatus,
+          orderDetails: _items,
+        );
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Order berhasil diperbarui.')),
+          );
+        }
+      } else {
+        await _orderService.createOrder(
+          customerName: _customerNameController.text.trim(),
+          description: _descriptionController.text.trim(),
+          orderDetails: _items,
+        );
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Order berhasil dibuat.')),
+          );
+        }
+      }
 
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Order berhasil dibuat.')));
         Navigator.pop(context, true);
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Gagal membuat order: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              widget.order != null
+                  ? 'Gagal memperbarui order: $e'
+                  : 'Gagal membuat order: $e',
+            ),
+          ),
+        );
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -104,7 +154,9 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Tambah Order')),
+      appBar: AppBar(
+        title: Text(widget.order != null ? 'Edit Order' : 'Tambah Order'),
+      ),
       body: Form(
         key: _formKey,
         child: ListView(
@@ -136,6 +188,28 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                   ? 'Deskripsi wajib diisi'
                   : null,
             ),
+            if (widget.order != null) ...[
+              const SizedBox(height: 12),
+              DropdownButtonFormField<String>(
+                initialValue: _selectedStatus,
+                decoration: const InputDecoration(
+                  labelText: 'Status Order',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.flag_outlined),
+                ),
+                items: const [
+                  DropdownMenuItem(value: 'pending', child: Text('Pending')),
+                  DropdownMenuItem(value: 'diproses', child: Text('Diproses')),
+                  DropdownMenuItem(value: 'dikirim', child: Text('Dikirim')),
+                  DropdownMenuItem(value: 'selesai', child: Text('Selesai')),
+                ],
+                onChanged: (value) {
+                  if (value != null) {
+                    setState(() => _selectedStatus = value);
+                  }
+                },
+              ),
+            ],
             const SizedBox(height: 20),
             const Text(
               'Daftar Item',
@@ -240,7 +314,7 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -309,7 +383,11 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.save),
-              label: Text(_isLoading ? 'Menyimpan...' : 'Simpan Order'),
+              label: Text(
+                _isLoading
+                    ? 'Menyimpan...'
+                    : (widget.order != null ? 'Update Order' : 'Simpan Order'),
+              ),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
               ),

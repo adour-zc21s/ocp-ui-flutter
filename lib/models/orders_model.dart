@@ -84,7 +84,8 @@ class Order {
 
     final total = json['totalAmount'] ?? json['amount'] ?? json['total'];
     final status = json['status']?.toString() ?? 'diproses';
-    final description = json['description']?.toString() ?? 'Tidak ada keterangan';
+    final description =
+        json['description']?.toString() ?? 'Tidak ada keterangan';
     return Order(
       id: json['id']?.toString() ?? json['orderId']?.toString() ?? 'ORD-000',
       customerName: customerName,
@@ -114,12 +115,23 @@ class Order {
 class OrderItemRequest {
   final int itemId;
   final int quantity;
+  final double? priceAtPurchase;
 
-  const OrderItemRequest({required this.itemId, required this.quantity});
+  const OrderItemRequest({
+    required this.itemId,
+    required this.quantity,
+    this.priceAtPurchase,
+  });
 
   Map<String, dynamic> toJson() => {
+    'id': itemId,
+    'itemId': itemId,
+    'item_id': itemId,
     'item': {'id': itemId},
     'quantity': quantity,
+    'qty': quantity,
+    if (priceAtPurchase != null) 'priceAtPurchase': priceAtPurchase,
+    if (priceAtPurchase != null) 'price_at_purchase': priceAtPurchase,
   };
 }
 
@@ -136,7 +148,35 @@ class CreateOrderRequest {
 
   Map<String, dynamic> toJson() => {
     'customerName': customerName,
+    'customer_name': customerName,
     'description': description,
     'orderDetails': orderDetails.map((e) => e.toJson()).toList(),
+    'order_details': orderDetails.map((e) => e.toJson()).toList(),
+  };
+}
+
+class UpdateOrderRequest {
+  final String id;
+  final String customerName;
+  final String description;
+  final String status;
+  final List<OrderItemRequest> orderDetails;
+
+  const UpdateOrderRequest({
+    required this.id,
+    required this.customerName,
+    required this.description,
+    required this.status,
+    required this.orderDetails,
+  });
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'customerName': customerName,
+    'customer_name': customerName,
+    'description': description,
+    'status': status,
+    'orderDetails': orderDetails.map((e) => e.toJson()).toList(),
+    'order_details': orderDetails.map((e) => e.toJson()).toList(),
   };
 }

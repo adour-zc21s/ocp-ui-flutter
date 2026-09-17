@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/orders_model.dart';
+import 'add_order_screen.dart';
 
 class OrderDetailScreen extends StatelessWidget {
   final Order order;
@@ -20,7 +21,27 @@ class OrderDetailScreen extends StatelessWidget {
         : order.orderDetails;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Detail Order')),
+      appBar: AppBar(
+        title: const Text('Detail Order'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            tooltip: 'Edit order',
+            onPressed: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddOrderScreen(order: order),
+                ),
+              );
+
+              if (result == true && context.mounted) {
+                Navigator.pop(context, true);
+              }
+            },
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -43,7 +64,7 @@ class OrderDetailScreen extends StatelessWidget {
                     'Rp ${order.totalAmount.toStringAsFixed(0)}',
                   ),
                   _infoRow('Tanggal', order.orderDate),
-                  _infoRow('Keterangan', order.description ?? 'Tidak ada keterangan'),
+                  _infoRow('Keterangan', order.description),
                 ],
               ),
             ),

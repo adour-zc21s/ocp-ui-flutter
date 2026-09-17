@@ -238,14 +238,18 @@ class _OrderScreenState extends State<OrderScreen> {
                       final order = filteredOrders[index];
 
                       return InkWell(
-                        onTap: () {
-                          Navigator.push(
+                        onTap: () async {
+                          final result = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
                                   OrderDetailScreen(order: order),
                             ),
                           );
+
+                          if (result == true && mounted) {
+                            _loadOrders();
+                          }
                         },
                         borderRadius: BorderRadius.circular(14),
                         child: Card(
