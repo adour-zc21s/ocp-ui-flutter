@@ -5,6 +5,7 @@ class Device {
   final String branchName;
   final String password;
   final String ipAddress;
+  final String passwordPortal;
   final String description;
 
   Device({
@@ -14,6 +15,7 @@ class Device {
     required this.branchName,
     required this.password,
     required this.ipAddress,
+    required this.passwordPortal,
     required this.description,
   });
 
@@ -25,6 +27,7 @@ class Device {
       branchName: json['branchName'] ?? 'Unknown Branch',
       password: json['password'] ?? 'No Password',
       ipAddress: json['ip_address'] ?? json['ipAddress'] ?? '-',
+      passwordPortal: json['password_portal'] ?? 'No Portal Password',
       description: json['description']?.toString() ?? 'Tidak ada deskripsi',
     );
   }

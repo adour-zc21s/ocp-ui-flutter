@@ -10,7 +10,7 @@ class DeviceDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Detail: ${device.deviceName}')),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Card(
           elevation: 2,
@@ -23,6 +23,7 @@ class DeviceDetailScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
+                  contentPadding: EdgeInsets.zero,
                   leading: const Icon(
                     Icons.devices,
                     size: 40,
@@ -37,67 +38,41 @@ class DeviceDetailScreen extends StatelessWidget {
                   ),
                   subtitle: Text('Branch: ${device.branchName}'),
                 ),
-                const Divider(),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('ID Device:', style: TextStyle(fontSize: 12)),
-                      Text(
-                        device.id,
-                        style: const TextStyle(color: Colors.grey, fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('User:', style: TextStyle(fontSize: 12)),
-                      Text(
-                        device.user,
-                        style: const TextStyle(color: Colors.grey, fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Password:', style: TextStyle(fontSize: 12)),
-                      Text(
-                        device.password,
-                        style: const TextStyle(color: Colors.grey, fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Description:', style: TextStyle(fontSize: 12),
-                      ),
-                      Expanded(
-                        child: Text(
-                          device.description,
-                          textAlign: TextAlign.right,
-                          style: const TextStyle(color: Colors.grey, fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const Divider(height: 24),
+                _buildDetailRow('ID Device:', device.id),
+                _buildDetailRow('Password:', device.password),
+                _buildDetailRow('IP:', device.ipAddress),
+                _buildDetailRow('Password Portal:', device.passwordPortal),
+                _buildDetailRow('Description:', device.description),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  // Helper widget untuk menggantikan ListTile agar tata letak lebih rapi dan efisien
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              value.isEmpty ? '-' : value,
+              textAlign: TextAlign.right,
+              style: const TextStyle(color: Colors.grey, fontSize: 12),
+            ),
+          ),
+        ],
       ),
     );
   }
