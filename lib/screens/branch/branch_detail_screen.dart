@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../models/branch_model.dart';
 
 class BranchDetailScreen extends StatelessWidget {
@@ -6,11 +7,26 @@ class BranchDetailScreen extends StatelessWidget {
 
   const BranchDetailScreen({super.key, required this.branch});
 
+  void _copyToClipboard(BuildContext context, String text, String label) {
+    if (text.isEmpty) return;
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$label berhasil disalin!'),
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String isp1Info = '${branch.namaIsp1} | ${branch.noIsp1}';
+    final String isp2Info = '${branch.namaIsp2} | ${branch.noIsp2}';
+
     return Scaffold(
       appBar: AppBar(title: Text('Detail: ${branch.name}')),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Card(
           elevation: 2,
@@ -23,11 +39,8 @@ class BranchDetailScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
-                  leading: const Icon(
-                    Icons.flag,
-                    size: 40,
-                    color: Colors.grey,
-                  ),
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.flag, size: 40, color: Colors.grey),
                   title: Text(
                     branch.name,
                     style: const TextStyle(
@@ -37,68 +50,73 @@ class BranchDetailScreen extends StatelessWidget {
                   ),
                   subtitle: Text(branch.namaPt),
                 ),
-                const Divider(),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('ID Branch:', style: TextStyle(fontSize: 12)),
-                      Text(
-                        branch.id,
-                        style: const TextStyle(color: Colors.grey, fontSize: 12),
-                      )
-                    ],
-                  ),
-                ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('ISP 1:', style: TextStyle(fontSize: 12)),
-                      Text(
-                        '${branch.namaIsp1} | ${branch.noIsp1}',
-                        style: const TextStyle(color: Colors.grey,
-                          fontSize: 12,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('ISP 2:', style: TextStyle(fontSize: 12)),
-                      Text(
-                        '${branch.namaIsp2} | ${branch.noIsp2}',
-                        style: const TextStyle(color: Colors.grey,
-                          fontSize: 12,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Alamat:', style: TextStyle(fontSize: 12)),
-                      Expanded(
-                        child: Text(
-                          branch.address,
-                          textAlign: TextAlign.right,
-                          style: const TextStyle(color: Colors.grey,
-                            fontSize: 12,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                const Divider(height: 24),
+                _buildDetailRow(context, 'ID Branch:', branch.id),
+                _buildDetailRow(context, 'ISP 1:', isp1Info),
+                _buildDetailRow(context, 'ISP 2:', isp2Info),
+                _buildDetailRow(
+                  context,
+                  'Alamat:',
+                  branch.address,
+                  isCopyable: true,
                 ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(
+    BuildContext context,
+    String label,
+    String value, {
+    bool isCopyable = false,
+  }) {
+    final displayValue = value.trim().isEmpty ? '-' : value;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    displayValue,
+                    textAlign: TextAlign.right,
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                    softWrap: true,
+                  ),
+                ),
+                if (isCopyable && value.isNotEmpty) ...[
+                  const SizedBox(width: 4),
+                  IconButton(
+                    icon: const Icon(Icons.copy, size: 16, color: Colors.blue),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    tooltip: 'Salin ${label.replaceAll(':', '')}',
+                    onPressed: () => _copyToClipboard(
+                      context,
+                      value,
+                      label.replaceAll(':', ''),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

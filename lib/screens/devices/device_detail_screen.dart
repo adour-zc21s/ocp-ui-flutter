@@ -114,7 +114,7 @@ class DeviceDetailScreen extends StatelessWidget {
                 if (isCopyable && value.isNotEmpty) ...[
                   const SizedBox(width: 4),
                   IconButton(
-                    icon: const Icon(Icons.copy, size: 16, color: Colors.grey),
+                    icon: const Icon(Icons.copy, size: 16, color: Colors.blue),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     tooltip: 'Salin $label',
