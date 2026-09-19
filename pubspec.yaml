@@ -35,7 +35,7 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/trackit_icon.png"
+  image_path: "assets/icon/riek-icon.png"
   # Opsional untuk Android 8.0+ (Adaptive Icons):
   # adaptive_icon_background: "#FFFFFF" # atau path ke gambar latar: "assets/icon/background.png"
   # adaptive_icon_foreground: "assets/icon/foreground.png"
