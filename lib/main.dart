@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'RIEK App',
+      title: 'RIEK Ware',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true,

@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'RIEK Apps',
+                'RIEK Ware',
                 style: TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.bold,
