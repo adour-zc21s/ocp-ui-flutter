@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               const SizedBox(height: 16),
                               const Text(
-                                'RIEK SYSTEM',
+                                'RIEK Apps',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w800,
