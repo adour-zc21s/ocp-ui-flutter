@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import '../../models/orders_model.dart';
 import '../../models/item_model.dart';
 import '../../services/order_service.dart';
@@ -25,6 +26,13 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
   String _selectedStatus = 'diproses';
 
   final List<OrderItemRequest> _items = [];
+
+  // Formatter Rupiah dengan pemisah ribuan
+  final NumberFormat _currencyFormat = NumberFormat.currency(
+    locale: 'id_ID',
+    symbol: 'Rp ',
+    decimalDigits: 0,
+  );
 
   @override
   void initState() {
@@ -237,8 +245,8 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                       }
 
                       if (snapshot.hasError) {
-                        return InputDecorator(
-                          decoration: const InputDecoration(
+                        return const InputDecorator(
+                          decoration: InputDecoration(
                             labelText: 'Item',
                             border: OutlineInputBorder(),
                           ),
@@ -259,7 +267,7 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                               (item) => DropdownMenuItem<Item>(
                                 value: item,
                                 child: Text(
-                                  '${item.name} (${item.price.toStringAsFixed(0)})',
+                                  '${item.name} (${_currencyFormat.format(double.tryParse(item.price.toString()) ?? 0)})',
                                 ),
                               ),
                             )
@@ -302,7 +310,6 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                               int currentValue =
                                   int.tryParse(_quantityController.text) ?? 0;
                               if (currentValue > 0) {
-                                // Mencegah nilai minus
                                 _quantityController.text = (currentValue - 1)
                                     .toString();
                               }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../models/orders_model.dart';
 import 'add_order_screen.dart';
 
@@ -9,6 +10,13 @@ class OrderDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Formatter Rupiah dengan pemisah ribuan
+    final currencyFormat = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp',
+      decimalDigits: 0,
+    );
+
     final details = order.orderDetails.isEmpty
         ? [
             OrderDetailItem(
@@ -59,10 +67,7 @@ class OrderDetailScreen extends StatelessWidget {
                   _infoRow('Order ID', order.id),
                   _infoRow('Customer', order.customerName),
                   _infoRow('Status', order.status),
-                  _infoRow(
-                    'Total',
-                    'Rp ${order.totalAmount.toStringAsFixed(0)}',
-                  ),
+                  _infoRow('Total', currencyFormat.format(order.totalAmount)),
                   _infoRow('Tanggal', order.orderDate),
                   _infoRow('Keterangan', order.description),
                 ],
@@ -85,7 +90,7 @@ class OrderDetailScreen extends StatelessWidget {
                 title: Text(detail.itemName),
                 subtitle: Text('Qty: ${detail.quantity}'),
                 trailing: Text(
-                  'Rp ${detail.price.toStringAsFixed(0)}',
+                  currencyFormat.format(detail.price),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),

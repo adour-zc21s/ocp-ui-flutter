@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/item_model.dart';
 import '../../services/item_service.dart';
 import 'item_detail_screen.dart';
+import 'package:intl/intl.dart';
 
 class ItemScreen extends StatefulWidget {
   const ItemScreen({super.key});
@@ -95,8 +96,9 @@ class _ItemScreenState extends State<ItemScreen> {
                           const SizedBox(height: 6),
 
                           // Harga Item
+                          // Kode Baru (dengan pemisah ribuan)
                           Text(
-                            '${(double.tryParse(item.price.toString()) ?? 0).toStringAsFixed(0)}K',
+                            'Rp${NumberFormat('#,##0', 'id_ID').format(double.tryParse(item.price.toString()) ?? 0)}',
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,

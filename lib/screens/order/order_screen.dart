@@ -109,14 +109,14 @@ class _OrderScreenState extends State<OrderScreen> {
                         builder: (context, snapshot) {
                           final currency = NumberFormat.currency(
                             locale: 'id_ID',
-                            symbol: 'Rp ',
+                            symbol: 'Rp',
                             decimalDigits: 0,
                           );
 
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             return Text(
-                              'Revenue : Rp 0',
+                              'Revenue= Rp0',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -342,7 +342,11 @@ class _OrderScreenState extends State<OrderScreen> {
                                       ),
                                     ),
                                     Text(
-                                      'Rp ${order.totalAmount.toStringAsFixed(0)}',
+                                      NumberFormat.currency(
+                                        locale: 'id_ID',
+                                        symbol: 'Rp',
+                                        decimalDigits: 0,
+                                      ).format(order.totalAmount),
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.green,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/item_model.dart';
+import 'package:intl/intl.dart';
 
 class ItemDetailScreen extends StatelessWidget {
   final Item item;
@@ -9,7 +10,7 @@ class ItemDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formattedPrice =
-        '${(double.tryParse(item.price.toString()) ?? 0).toStringAsFixed(0)}K';
+        'Rp${NumberFormat('#,##0', 'id_ID').format(double.tryParse(item.price.toString()) ?? 0)}';
 
     return Scaffold(
       appBar: AppBar(title: Text('Detail: ${item.name}')),
