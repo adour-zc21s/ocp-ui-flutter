@@ -15,6 +15,7 @@ import '../items/item_screen.dart';
 import '../../services/auth_service.dart';
 import '../../services/location_service.dart';
 import '../order/order_screen.dart';
+import '../pocket/pocket_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -87,9 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
         'screen': const ItemScreen(),
       },
       {
-        'title': 'Accounts',
-        'icon': Icons.person,
+        'title': 'Pocket',
+        'icon': Icons.account_balance_wallet,
         'color': Colors.green.shade700,
+        'screen': const PocketScreen(),
       },
       {
         'title': 'Orders',
