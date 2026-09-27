@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
         'screen': const ItemScreen(),
       },
       {
-        'title': 'Pocket',
+        'title': 'Pockets',
         'icon': Icons.account_balance_wallet,
         'color': Colors.green.shade700,
         'screen': const PocketScreen(),

@@ -26,7 +26,9 @@ class _PocketScreenState extends State<PocketScreen> {
 
   Future<void> _loadPockets() async {
     final future = _pocketService.fetchPockets();
-    setState(() => _futurePockets = future);
+    setState(() {
+      _futurePockets = future;
+    });
     await future;
   }
 
@@ -66,7 +68,9 @@ class _PocketScreenState extends State<PocketScreen> {
       };
     }).toList();
 
-    setState(() => _futurePockets = Future.value(updatedPockets));
+    setState(() {
+      _futurePockets = Future.value(updatedPockets);
+    });
     _refreshAndKeepAddedEntry(pocketId, addedEntry);
   }
 
@@ -86,7 +90,9 @@ class _PocketScreenState extends State<PocketScreen> {
         return;
       }
       if (!mounted) return;
-      setState(() => _futurePockets = Future.value(refreshedPockets));
+      setState(() {
+        _futurePockets = Future.value(refreshedPockets);
+      });
     } catch (_) {
       // The optimistic list already shows the successfully created entry.
     }
