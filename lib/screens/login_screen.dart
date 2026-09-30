@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   final _authService = AuthService();
   bool _isLoading = false;
+  bool _isPasswordVisible = false;
 
   @override
   void dispose() {
@@ -176,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               // Input Password
                               TextField(
                                 controller: _passwordController,
-                                obscureText: true,
+                                obscureText: !_isPasswordVisible,
                                 style: const TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Password',
@@ -186,6 +187,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                   prefixIcon: const Icon(
                                     Icons.lock_outline,
                                     color: Colors.white,
+                                  ),
+                                  suffixIcon: IconButton(
+                                    tooltip: _isPasswordVisible
+                                        ? 'Sembunyikan password'
+                                        : 'Lihat password',
+                                    onPressed: () {
+                                      setState(() {
+                                        _isPasswordVisible =
+                                            !_isPasswordVisible;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      _isPasswordVisible
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: Colors.white70,
+                                    ),
                                   ),
                                   filled: true,
                                   fillColor: Colors.black.withValues(

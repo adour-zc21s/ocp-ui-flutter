@@ -76,6 +76,22 @@ class PocketService {
     }
   }
 
+  Future<dynamic> fetchMonthlyReport(int pocketId) async {
+    final token = await AuthService.getToken();
+    final response = await http.get(
+      Uri.parse(ApiConfig.pocketMonthlyReport(pocketId)),
+      headers: _authorizedHeaders(token),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Gagal memuat report pocket (${response.statusCode}): ${response.body}',
+      );
+    }
+
+    return jsonDecode(response.body);
+  }
+
   Map<String, String> _authorizedHeaders(String? token) {
     if (token == null || token.isEmpty) {
       throw Exception('Token login tidak ditemukan. Silakan login kembali.');

@@ -74,6 +74,127 @@ class _PocketScreenState extends State<PocketScreen> {
     _refreshAndKeepAddedEntry(pocketId, addedEntry);
   }
 
+  Future<void> _showMonthlyReport(int pocketId, String pocketName) async {
+    await showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text('Report Bulanan - $pocketName'),
+        content: FutureBuilder<dynamic>(
+          future: _pocketService.fetchMonthlyReport(pocketId),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const SizedBox(
+                height: 96,
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+            if (snapshot.hasError) {
+              return SingleChildScrollView(
+                child: Text('Gagal memuat report: ${snapshot.error}'),
+              );
+            }
+            return SizedBox(
+              width: 440,
+              child: SingleChildScrollView(
+                child: _buildReportValue(snapshot.data),
+              ),
+            );
+          },
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Tutup'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReportValue(dynamic value, {String? label}) {
+    if (value is Map) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: value.entries
+            .map(
+              (entry) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: _buildReportValue(
+                  entry.value,
+                  label: _formatReportLabel(entry.key.toString()),
+                ),
+              ),
+            )
+            .toList(),
+      );
+    }
+    if (value is List) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: value.map((entry) => _buildReportValue(entry)).toList(),
+      );
+    }
+
+    final isCurrency = label != null && _isCurrencyReportField(label);
+    final numericValue = value is num
+        ? value.toDouble()
+        : double.tryParse(value?.toString() ?? '');
+    final text = value == null
+        ? '-'
+        : isCurrency && numericValue != null
+        ? _formatAmount(numericValue)
+        : value.toString();
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (label != null) ...[
+          Expanded(
+            flex: 2,
+            child: Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+          ),
+          const SizedBox(width: 12),
+        ],
+        Expanded(flex: 3, child: Text(text)),
+      ],
+    );
+  }
+
+  String _formatReportLabel(String value) {
+    final spaced = value.replaceAllMapped(
+      RegExp(r'([a-z])([A-Z])'),
+      (match) => '${match[1]} ${match[2]}',
+    );
+    return spaced.isEmpty
+        ? spaced
+        : '${spaced[0].toUpperCase()}${spaced.substring(1)}';
+  }
+
+  bool _isCurrencyReportField(String label) {
+    final normalized = label.toLowerCase().replaceAll(RegExp(r'[^a-z]'), '');
+    if (RegExp(
+      r'^(id|year|month|count|quantity|totalitems)$',
+    ).hasMatch(normalized)) {
+      return false;
+    }
+    return [
+      'amount',
+      'balance',
+      'saldo',
+      'income',
+      'expense',
+      'revenue',
+      'pemasukan',
+      'pengeluaran',
+      'gaji',
+      'total',
+    ].any(normalized.contains);
+  }
+
   Future<void> _refreshAndKeepAddedEntry(
     int pocketId,
     Map<String, dynamic> addedEntry,
@@ -218,13 +339,28 @@ class _PocketScreenState extends State<PocketScreen> {
                     children: [
                       ListTile(
                         dense: true,
-                        title: const Text('Tambah transaksi'),
-                        trailing: IconButton(
-                          tooltip: 'Tambah ke ${_pocketTitle(pocket)}',
-                          onPressed: pocketId == null
-                              ? null
-                              : () => _openAddItem(pocketId),
-                          icon: const Icon(Icons.add_circle_outline),
+                        title: const Text('Aksi Pocket'),
+                        trailing: Wrap(
+                          spacing: 4,
+                          children: [
+                            IconButton(
+                              tooltip: 'Report bulanan',
+                              onPressed: pocketId == null
+                                  ? null
+                                  : () => _showMonthlyReport(
+                                      pocketId,
+                                      _pocketTitle(pocket),
+                                    ),
+                              icon: const Icon(Icons.insert_chart_outlined),
+                            ),
+                            IconButton(
+                              tooltip: 'Tambah transaksi',
+                              onPressed: pocketId == null
+                                  ? null
+                                  : () => _openAddItem(pocketId),
+                              icon: const Icon(Icons.add_circle_outline),
+                            ),
+                          ],
                         ),
                       ),
                       if (items.isEmpty)
