@@ -420,9 +420,9 @@ class _AddPocketItemScreenState extends State<AddPocketItemScreen> {
   final _amountController = TextEditingController();
   final _pocketService = PocketService();
   static const _entryTypes = {
-    'GAJI': 'GAJI',
-    'PEMASUKAN LAIN': 'PEMASUKAN_LAIN',
-    'PENGELUARAN': 'PENGELUARAN',
+    'SALARY': 'SALARY',
+    'OTHERS INCOME': 'OTHERS INCOME',
+    'EXPENSE': 'EXPENSE',
   };
   String? _selectedType;
   bool _isSubmitting = false;
