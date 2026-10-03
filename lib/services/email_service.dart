@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'api_http.dart' as http;
 import '../models/email_model.dart';
 import 'api_config.dart';
 import 'auth_service.dart';

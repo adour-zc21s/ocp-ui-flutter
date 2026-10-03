@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'api_http.dart' as http;
 import '../models/device_model.dart';
 import 'api_config.dart';
 import 'auth_service.dart';
 
 class DeviceService {
-
   Future<List<Device>> fetchDevices() async {
     try {
       final token = await AuthService.getToken();
@@ -26,6 +25,7 @@ class DeviceService {
       rethrow;
     }
   }
+
   // Method pencarian device
   Future<List<Device>> searchDevices(String query) async {
     try {

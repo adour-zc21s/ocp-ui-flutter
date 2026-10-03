@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'api_http.dart' as http;
 import '../models/ticket_model.dart';
 import 'api_config.dart';
 import 'auth_service.dart';
@@ -61,8 +61,7 @@ class TicketService {
         List<dynamic> content = body is Map ? body['content'] : body;
         return content.map((item) => TicketComment.fromJson(item)).toList();
       } else {
-        throw Exception(
-            'Gagal memuat komentar tiket: ${response.statusCode}');
+        throw Exception('Gagal memuat komentar tiket: ${response.statusCode}');
       }
     } catch (e) {
       rethrow;
@@ -80,24 +79,18 @@ class TicketService {
 
       final url = Uri.parse('${ApiConfig.tickets}/$ticketId/comments');
 
-      final headers = <String, String>{
-        'Content-Type': 'application/json',
-      };
+      final headers = <String, String>{'Content-Type': 'application/json'};
 
       if (token != null && token.isNotEmpty) {
         headers['Authorization'] = 'Bearer $token';
       }
 
-      final body = jsonEncode({
-        'comment': comment,
-        'commentedBy': author,
-        });
+      final body = jsonEncode({'comment': comment, 'commentedBy': author});
 
       final response = await http.post(url, headers: headers, body: body);
 
       if (response.statusCode != 201) {
-        throw Exception(
-            'Gagal menambahkan komentar: ${response.statusCode}');
+        throw Exception('Gagal menambahkan komentar: ${response.statusCode}');
       }
     } catch (e) {
       rethrow;
