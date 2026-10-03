@@ -59,7 +59,7 @@ class _PocketScreenState extends State<PocketScreen> {
       final balance = oldBalance is num
           ? oldBalance.toDouble()
           : double.tryParse(oldBalance.toString()) ?? 0;
-      final isExpense = addedEntry['type'] == 'PENGELUARAN';
+      final isExpense = addedEntry['type'] == 'EXPENSE';
 
       return {
         ...pocket,
@@ -247,6 +247,12 @@ class _PocketScreenState extends State<PocketScreen> {
     return _currencyFormat.format(value);
   }
 
+  String _formatTransactionDate(dynamic value) {
+    final date = DateTime.tryParse(value?.toString() ?? '');
+    if (date == null) return value?.toString() ?? '';
+    return DateFormat('dd-MM-yy HH:mm').format(date.toLocal());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -371,9 +377,8 @@ class _PocketScreenState extends State<PocketScreen> {
                       else
                         ...items.map((item) {
                           final type = item['type']?.toString() ?? '';
-                          final isExpense = type.toUpperCase() == 'PENGELUARAN';
-                          final transactionDate = item['transactionDate']
-                              ?.toString();
+                          final isExpense = type.toUpperCase() == 'EXPENSE';
+                          final transactionDate = item['transactionDate'];
                           return ListTile(
                             dense: true,
                             title: Text(
@@ -383,13 +388,18 @@ class _PocketScreenState extends State<PocketScreen> {
                               [
                                 type,
                                 if (transactionDate != null &&
-                                    transactionDate.isNotEmpty)
-                                  transactionDate,
+                                    transactionDate.toString().isNotEmpty)
+                                  _formatTransactionDate(transactionDate),
                               ].join(' · '),
                             ),
                             trailing: Text(
                               '${isExpense ? '-' : '+'}${_formatAmount(item['amount'])}',
-                              style: TextStyle(fontWeight: FontWeight.w600),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: isExpense
+                                    ? Colors.red.shade700
+                                    : Colors.green.shade700,
+                              ),
                             ),
                           );
                         }),
