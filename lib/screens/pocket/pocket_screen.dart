@@ -431,7 +431,7 @@ class _AddPocketItemScreenState extends State<AddPocketItemScreen> {
   final _pocketService = PocketService();
   static const _entryTypes = {
     'SALARY': 'SALARY',
-    'OTHERS INCOME': 'OTHERS INCOME',
+    'OTHERS INCOME': 'OTHERS_INCOME',
     'EXPENSE': 'EXPENSE',
   };
   String? _selectedType;
