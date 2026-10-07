@@ -57,3 +57,4 @@ android/gradle/wrapper/gradle-wrapper.properties
 lib/services/location_service.dart
 macos/Flutter/GeneratedPluginRegistrant.swift
 test/orders_screen_test.dart
+pubspec.lock
