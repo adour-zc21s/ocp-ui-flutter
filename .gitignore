@@ -2,6 +2,7 @@
 *.class
 *.log
 *.pyc
+*.lock
 *.swp
 .DS_Store
 .atom/
@@ -49,3 +50,10 @@ android/settings.gradle.kts
 android/app/build.gradle.kts
 android/gradle/wrapper/gradle-wrapper.properties
 android/build/reports/problems/problems-report.html
+pubspec.lock
+pubspec.yaml
+android/app/src/main/kotlin/com/example/ocp_flut/MainActivity.kt
+android/gradle/wrapper/gradle-wrapper.properties
+lib/services/location_service.dart
+macos/Flutter/GeneratedPluginRegistrant.swift
+test/orders_screen_test.dart

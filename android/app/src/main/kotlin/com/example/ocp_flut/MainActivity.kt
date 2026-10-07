@@ -2,4 +2,5 @@ package com.example.ocp_flut
 
 import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity : FlutterActivity()
+class MainActivity: FlutterActivity() {
+}
