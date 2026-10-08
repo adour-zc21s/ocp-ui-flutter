@@ -82,10 +82,19 @@ class _EmailScreenState extends State<EmailScreen> {
           IconButton(icon: const Icon(Icons.refresh), onPressed: _loadEmails),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _addEmail,
-        icon: const Icon(Icons.add),
-        label: const Text('Tambah Email'),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const EmailFormScreen()),
+          );
+
+          if (result == true && mounted) {
+            _loadEmails();
+          }
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
       body: Column(
         children: [
