@@ -14,10 +14,11 @@ class Email {
   factory Email.fromJson(Map<String, dynamic> json) {
     return Email(
       id: json['id']?.toString() ?? '',
-      perfectName: json['perfectName'] ?? 'Unknown Device',
-      email: json['email'] ?? 'Unknown Email',
-      password: json['passwd'] ?? 'Unknown Password',
+      perfectName:
+          (json['perfect_name'] ?? json['perfectName'])?.toString() ??
+          'Unknown Device',
+      email: json['email']?.toString() ?? 'Unknown Email',
+      password: json['passwd']?.toString() ?? 'Unknown Password',
     );
   }
-
 }

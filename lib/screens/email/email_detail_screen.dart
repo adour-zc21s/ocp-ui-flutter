@@ -1,16 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../models/email_model.dart';
+import 'email_form_screen.dart';
 
 class EmailDetailScreen extends StatelessWidget {
   final Email email;
 
   const EmailDetailScreen({super.key, required this.email});
 
+  Future<void> _editEmail(BuildContext context) async {
+    final updatedEmail = await Navigator.push<Email>(
+      context,
+      MaterialPageRoute(builder: (_) => EmailFormScreen(email: email)),
+    );
+    if (updatedEmail != null && context.mounted) {
+      Navigator.pop(context, updatedEmail);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Detail: ${email.perfectName}')),
+      appBar: AppBar(
+        title: Text('Detail: ${email.perfectName}'),
+        actions: [
+          IconButton(
+            tooltip: 'Edit email',
+            onPressed: () => _editEmail(context),
+            icon: const Icon(Icons.edit_outlined),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Card(

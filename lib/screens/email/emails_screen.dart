@@ -3,6 +3,7 @@ import '../../models/email_model.dart';
 import '../../services/email_service.dart';
 import '../../widgets/email_item_tile.dart';
 import 'email_detail_screen.dart';
+import 'email_form_screen.dart';
 import 'dart:async';
 
 class EmailScreen extends StatefulWidget {
@@ -37,6 +38,23 @@ class _EmailScreenState extends State<EmailScreen> {
       _futureEmails = _emailService.fetchEmails();
     });
   }
+
+  void _reloadEmails() {
+    final query = _searchController.text.trim();
+    setState(() {
+      _futureEmails = query.isEmpty
+          ? _emailService.fetchEmails()
+          : _emailService.searchEmails(query);
+    });
+  }
+
+  Future<void> _addEmail() async {
+    final added = await Navigator.push<Email>(
+      context,
+      MaterialPageRoute(builder: (_) => const EmailFormScreen()),
+    );
+    if (added != null && mounted) _loadEmails();
+  }
   
   void _onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
@@ -63,6 +81,11 @@ class _EmailScreenState extends State<EmailScreen> {
         actions: [
           IconButton(icon: const Icon(Icons.refresh), onPressed: _loadEmails),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _addEmail,
+        icon: const Icon(Icons.add),
+        label: const Text('Tambah Email'),
       ),
       body: Column(
         children: [
@@ -120,13 +143,17 @@ class _EmailScreenState extends State<EmailScreen> {
                           // Menutup keyboard jika masih terbuka sebelum navigasi
                           FocusScope.of(context).unfocus();
 
-                          Navigator.push(
+                          Navigator.push<Email>(
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
                                   EmailDetailScreen(email: email),
                             ),
-                          );
+                          ).then((updatedEmail) {
+                            if (updatedEmail != null && mounted) {
+                              _reloadEmails();
+                            }
+                          });
                         },
                       );
                     },

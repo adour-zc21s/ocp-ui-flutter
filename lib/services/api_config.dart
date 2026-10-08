@@ -25,6 +25,7 @@ class ApiConfig {
   // Endpoint Email
   static const String emails = '$baseUrl/emails';
   static const String emailSearch = '$baseUrl/emails/search';
+  static String emailDetail(String id) => '$emails/$id';
   // Endpoint Device
   static const String devices = '$baseUrl/dev';
   static const String deviceSearch = '$baseUrl/dev/search';

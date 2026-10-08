@@ -165,7 +165,7 @@ class _PocketScreenState extends State<PocketScreen> {
   }
 
   String _formatReportLabel(String value) {
-    final spaced = value.replaceAllMapped(
+    final spaced = _formatEntryType(value).replaceAllMapped(
       RegExp(r'([a-z])([A-Z])'),
       (match) => '${match[1]} ${match[2]}',
     );
@@ -252,6 +252,8 @@ class _PocketScreenState extends State<PocketScreen> {
     if (date == null) return value?.toString() ?? '';
     return DateFormat('dd-MM-yy HH:mm').format(date.toLocal());
   }
+
+  String _formatEntryType(String type) => type.replaceAll('_', ' ');
 
   @override
   Widget build(BuildContext context) {
@@ -386,7 +388,7 @@ class _PocketScreenState extends State<PocketScreen> {
                             ),
                             subtitle: Text(
                               [
-                                type,
+                                _formatEntryType(type),
                                 if (transactionDate != null &&
                                     transactionDate.toString().isNotEmpty)
                                   _formatTransactionDate(transactionDate),
