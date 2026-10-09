@@ -58,3 +58,4 @@ lib/services/location_service.dart
 macos/Flutter/GeneratedPluginRegistrant.swift
 test/orders_screen_test.dart
 pubspec.lock
+pubspec.lock
