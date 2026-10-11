@@ -86,7 +86,7 @@ class _OrderScreenState extends State<OrderScreen> {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.green.shade700, Colors.teal.shade600],
+                colors: [Colors.green, Colors.white70],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -148,7 +148,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   ),
                   child: const Icon(
                     Icons.shopping_bag,
-                    color: Colors.white,
+                    color: Colors.green,
                     size: 28,
                   ),
                 ),

@@ -327,7 +327,7 @@ class _PocketScreenState extends State<PocketScreen> {
                   child: ExpansionTile(
                     initiallyExpanded: true,
                     leading: const CircleAvatar(
-                      child: Icon(Icons.account_balance_wallet_outlined),
+                      child: Icon(Icons.account_balance_wallet, color: Colors.green),
                     ),
                     title: Text(_pocketTitle(pocket)),
                     subtitle: Column(
@@ -338,7 +338,7 @@ class _PocketScreenState extends State<PocketScreen> {
                         Text(
                           'Saldo: ${_formatAmount(pocket['totalBalance'] ?? pocket['balance'])}',
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Colors.green,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
