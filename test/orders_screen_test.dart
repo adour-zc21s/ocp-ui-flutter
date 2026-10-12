@@ -28,6 +28,7 @@ void main() {
       customerName: 'Sintayong',
       itemName: 'Router',
       totalAmount: 1500000,
+      description: 'Order for networking equipment',
       status: 'Pending',
       orderDate: '2026-09-16',
       branchName: 'Jakarta',
